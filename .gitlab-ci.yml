@@ -55,7 +55,7 @@ build 1/2:
 build 2/2:
   stage: build
   script:
-    - ...
+    - echo build is done
 
 test:
   stage: test
