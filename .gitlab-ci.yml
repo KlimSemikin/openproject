@@ -58,7 +58,11 @@ build:
     - bundle exec rails assets:precompile
   artifacts:
     paths:
-      - public/
+      - public/assets/
+      - public/javascripts/
+      - frontend/src/locales/
+      - frontend/src/app/features/plugins/
+      - config/frontend_assets.manifest.json
 
 test:
   stage: test
