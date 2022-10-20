@@ -8,10 +8,6 @@ default:
     paths:
       - vendor/ruby/
     policy: pull
-  before_script:
-    - ruby -v
-    - bundle config set --local path 'vendor/ruby'
-    - bundle install -j $(nproc)
 
 .db:
   variables:
@@ -20,16 +16,19 @@ default:
     POSTGRES_PASSWORD: ''
     POSTGRES_HOST_AUTH_METHOD: trust
     RAILS_ENV: test
-    BUNDLE_PATH: vendor/ruby/
   services:
     - postgres:latest
   before_script:
+    - ruby -v
+    - bundle config set --local path 'vendor/ruby'
+    - bundle install -j $(nproc)
+
     - mv config/database.yml.example config/database.yml
     - "echo '  host: postgres' >> config/database.yml"
     - "echo '  schema_dump: false' >> config/database.yml"
     - bundle exec rails db:migrate
 
-build 1/2:
+build:
   stage: build
   cache:
     - key: ${CI_JOB_NAME}
@@ -51,11 +50,6 @@ build 1/2:
       - public/
   when:
     manual
-
-build 2/2:
-  stage: build
-  script:
-    - echo build is done
 
 test:
   stage: test
