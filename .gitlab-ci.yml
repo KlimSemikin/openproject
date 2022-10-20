@@ -47,9 +47,9 @@ db-setup:
   services:
     - postgres:latest
   stage: staging
-  needs:
-    - job: build
-      artifacts: true
+#  needs:
+#    - job: build
+#      artifacts: true
   script:
     - mv config/database.yml.example config/database.yml
     - "echo '  host: postgres' >> config/database.yml"
