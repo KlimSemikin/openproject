@@ -13,16 +13,12 @@ default:
     - bundle config set --local path 'vendor/ruby'
     - bundle install -j $(nproc)
 
-#services:
-#  - postgres:latest
-
 build:
   stage: build
   cache:
     - key: ${CI_JOB_NAME}
       paths:
         - frontend/.npm/
-        - frontend/node_modules/
       when: on_success
       policy: pull-push
 
@@ -38,10 +34,21 @@ build:
     paths:
       - public/
 
-deploy-to-stage:
+db-setup:
+  variables:
+    POSTGRES_DB: openproject_test
+    POSTGRES_USER: openproject_test
+    POSTGRES_PASSWORD: ''
+    POSTGRES_HOST_AUTH_METHOD: trust
+  services:
+    - postgres:latest
   stage: staging
   needs:
     - job: build
       artifacts: true
   script:
     - ls public
+    - mv config/database.yml.example config/database.yml
+    - "echo '  host: postgres' >> config/database.yml"
+    - bundle exec rails db:create
+    - bundle exec rails db:db:schema:load
