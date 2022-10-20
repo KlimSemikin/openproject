@@ -53,4 +53,4 @@ db-setup:
   script:
     - mv config/database.yml.example config/database.yml
     - "echo '  host: postgres' >> config/database.yml"
-    - bundle exec rails db:schema:load
+    - bundle exec rails db:migrate
