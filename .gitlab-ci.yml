@@ -20,6 +20,7 @@ default:
     POSTGRES_PASSWORD: ''
     POSTGRES_HOST_AUTH_METHOD: trust
     RAILS_ENV: test
+    BUNDLE_PATH: vendor/ruby/
   services:
     - postgres:latest
   before_script:
@@ -48,12 +49,14 @@ build:
   artifacts:
     paths:
       - public/
+  when:
+    manual
 
 test:
   stage: test
   extends: .db
-  needs:
-    - job: build
-      artifacts: true
+#  needs:
+#    - job: build
+#      artifacts: true
   script:
     - OPENPROJECT_CLI_PROXY='' bundle exec rails s
