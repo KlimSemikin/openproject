@@ -5,9 +5,12 @@ stages:
 default:
   image: ruby:3.1.2
   cache:
-    paths:
-      - vendor/ruby/
-    policy: pull
+    - key:
+        files:
+          - Gemfile.lock
+      paths:
+        - vendor/ruby/
+      policy: pull
 
 .db:
   variables:
@@ -20,7 +23,6 @@ default:
   services:
     - postgres:latest
   before_script:
-    - ruby -v
     - bundle config set --local path 'vendor/ruby'
     - bundle install -j $(nproc)
 
