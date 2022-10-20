@@ -1,6 +1,6 @@
 stages:
   - build
-  - staging
+  - test
 
 default:
   image: ruby:3.1.2
@@ -50,6 +50,7 @@ build:
       - public/
 
 test:
+  stage: test
   extends: .db
   needs:
     - job: build
