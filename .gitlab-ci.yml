@@ -13,6 +13,21 @@ default:
     - bundle config set --local path 'vendor/ruby'
     - bundle install -j $(nproc)
 
+.db:
+  variables:
+    POSTGRES_DB: openproject_test
+    POSTGRES_USER: openproject_test
+    POSTGRES_PASSWORD: ''
+    POSTGRES_HOST_AUTH_METHOD: trust
+    RAILS_ENV: test
+  services:
+    - postgres:latest
+  before_script:
+    - mv config/database.yml.example config/database.yml
+    - "echo '  host: postgres' >> config/database.yml"
+    - "echo '  schema_dump: false' >> config/database.yml"
+    - bundle exec rails db:migrate
+
 build:
   stage: build
   cache:
@@ -33,25 +48,11 @@ build:
   artifacts:
     paths:
       - public/
-  when:
-    manual
 
-db-setup:
-  variables:
-    POSTGRES_DB: openproject_test
-    POSTGRES_USER: openproject_test
-    POSTGRES_PASSWORD: ''
-    POSTGRES_HOST_AUTH_METHOD: trust
-    RAILS_ENV: test
-    DISABLE_SPRING: 1
-  services:
-    - postgres:latest
-  stage: staging
-#  needs:
-#    - job: build
-#      artifacts: true
+test:
+  extends: .db
+  needs:
+    - job: build
+      artifacts: true
   script:
-    - mv config/database.yml.example config/database.yml
-    - "echo '  host: postgres' >> config/database.yml"
-    - "echo '  schema_dump: false' >> config/database.yml"
-    - bundle exec rails db:migrate
+    - OPENPROJECT_CLI_PROXY='' bundle exec rails s
