@@ -20,13 +20,7 @@ stages:
   services:
     - postgres:latest
   before_script:
-    - bundle config set --local path 'vendor/ruby'
-    - bundle install -j $(nproc)
-
-    - mv config/database.yml.example config/database.yml
-    - "echo '  host: postgres' >> config/database.yml"
-    - "echo '  schema_dump: false' >> config/database.yml"
-    - bundle exec rails db:migrate
+    - bin/gitlab_ci/setup_db
 
 build:
   extends: .db
@@ -48,11 +42,8 @@ build:
     - paths:
         - apt-cache/
   script:
-    - export APT_CACHE_DIR=`pwd`/apt-cache && mkdir -pv $APT_CACHE_DIR
-    - apt-get update -qq && apt-get -o dir::cache::archives="$APT_CACHE_DIR" install -yqq nodejs npm
-    - cd frontend && npm ci --cache .npm --prefer-offline
-    - cd ..
-    - bundle exec rails assets:precompile
+    - bin/gitlab_ci/compile_assets
+
   artifacts:
     paths:
       - public/assets/

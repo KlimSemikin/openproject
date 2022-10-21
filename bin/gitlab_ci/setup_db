@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+bundle config set --local path 'vendor/ruby'
+# shellcheck disable=SC2046
+bundle install -j $(nproc)
+mv config/database.yml.example config/database.yml
+echo '  host: postgres' >> config/database.yml
+echo '  schema_dump: false' >> config/database.yml
+bundle exec rails db:migrate
