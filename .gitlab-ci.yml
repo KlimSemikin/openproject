@@ -51,3 +51,8 @@ build:
       - frontend/src/locales/
       - frontend/src/app/features/plugins/
       - config/frontend_assets.manifest.json
+
+include:
+  - project: openproject/XmlImport
+    ref: improve_ci
+    file: .gitlab-ci-tests.yml
