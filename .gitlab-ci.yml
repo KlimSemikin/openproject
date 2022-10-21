@@ -67,7 +67,7 @@ default:
 clone-plugin:
   stage: .pre
   script:
-    - git clone https://$(gitlab+deploy-token-1):$(RGpsTpA6nWit2XNwSYVR)@http://51.250.96.244/openproject/XmlImport.git -b $CI_PLUGIN_COMMIT_BRANCH
+    - git clone http://$(gitlab+deploy-token-1):$(RGpsTpA6nWit2XNwSYVR)@51.250.96.244/openproject/XmlImport.git -b $CI_PLUGIN_COMMIT_BRANCH
     - "echo 'gem \"openproject-xml_import\", path: \"XmlImport\", group: :opf_plugins' > Gemfile.plugins"
   artifacts:
     paths:
