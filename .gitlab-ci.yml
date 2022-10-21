@@ -72,5 +72,5 @@ system-test:
 #      artifacts: true
 
   script:
-    - echo $CI_COMMIT_BRANCH
+    - echo $CI_PLUGIN_COMMIT_BRANCH
 #    - OPENPROJECT_CLI_PROXY='' bundle exec rspec plugins/XmlImport/spec/features
