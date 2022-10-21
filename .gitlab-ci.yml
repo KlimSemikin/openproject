@@ -86,4 +86,5 @@ system-test:
 
   script:
     - cat Gemfile.lock
+    - bin/setup_chrome
     - OPENPROJECT_CLI_PROXY='' bundle exec rspec plugins/XmlImport/spec/features
