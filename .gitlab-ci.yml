@@ -54,5 +54,5 @@ build:
 
 include:
   - project: openproject/XmlImport
-    ref: improve_ci
+    ref: feature/improve_ci
     file: .gitlab-ci-tests.yml
