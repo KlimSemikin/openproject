@@ -68,13 +68,12 @@ system-test:
   stage: test
   extends: .db
   needs:
-#    - job: build
-#      artifacts: true
-
     - project: openproject/XmlImport
       job: build-plugin
       ref: $UPSTREAM_REF
       artifacts: true
+#    - job: build
+#      artifacts: true
   script:
     - ls
     - OPENPROJECT_CLI_PROXY='' bundle exec rspec plugins/XmlImport/spec/features
