@@ -2,10 +2,15 @@
 
 set -e
 
+echo "Bundling rails dependencies ... "
 bundle config set --local path 'vendor/ruby'
 # shellcheck disable=SC2046
 bundle install -j $(nproc)
+
+echo "Database config settings"
 mv config/database.yml.example config/database.yml
 echo '  host: postgres' >> config/database.yml
 echo '  schema_dump: false' >> config/database.yml
+
+echo "Migrating database"
 bundle exec rails db:migrate

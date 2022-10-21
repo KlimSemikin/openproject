@@ -2,13 +2,15 @@
 
 set -e
 
-# Install Chrome
+echo "Installing Chrome dependencies"
 apt-get update -qq
 apt-get install -y xvfb
 apt-get install -y zip
 apt-get install -y wget
 apt-get install -y ca-certificates
 apt-get install -y libnss3-dev libasound2 libxss1 libappindicator3-1 gconf-service libgconf-2-4 libpango1.0-0 xdg-utils fonts-liberation libgbm1
+
+echo "Installing Chrome ... "
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 dpkg -i google-chrome*.deb
 rm google-chrome*.deb

@@ -2,8 +2,14 @@
 
 set -e
 
+echo "Installing nodejs, npm"
 export APT_CACHE_DIR=$(pwd)/apt-cache && mkdir -pv "$APT_CACHE_DIR"
 apt-get update -qq && apt-get -o dir::cache::archives="$APT_CACHE_DIR" install -yqq nodejs npm
+
+echo "Collect node_modules"
 cd frontend && npm ci --cache .npm --prefer-offline
+
 cd ..
+
+echo "Compiling public assets"
 bundle exec rails assets:precompile
