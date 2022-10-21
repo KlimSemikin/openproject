@@ -2,8 +2,7 @@ stages:
   - build
   - test
 
-default:
-  image: ruby:3.1.2
+.db:
   cache:
     - key:
         files:
@@ -11,8 +10,6 @@ default:
       paths:
         - vendor/ruby/
       policy: pull
-
-.db:
   variables:
     POSTGRES_DB: openproject_test
     POSTGRES_USER: openproject_test
@@ -85,6 +82,5 @@ system-test:
       artifacts: true
 
   script:
-    - cat Gemfile.lock
     - bin/setup_chrome
     - OPENPROJECT_CLI_PROXY='' bundle exec rspec XmlImport/spec/features
