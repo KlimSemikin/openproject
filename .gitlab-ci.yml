@@ -57,3 +57,7 @@ include:
   - project: openproject/XmlImport
     ref: feature/improve_ci
     file: .gitlab-ci-tests.yml
+
+deploy-stage:
+  when: manual
+  script: echo deploy to stage
