@@ -64,4 +64,4 @@ build:
 deploy-openproject-stage:
   extends: .deploy-template
   script:
-    - ssh $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS "bash && source ~/.profile && cd openproject && rm Gemfile.lock && git pull origin dev && RAILS_ENV=production ./bin/setup_dev && RAILS_ENV=production bundle exec rails assets:precompile && touch tmp/restart.txt && exit"
+    - ssh $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS ". ~/.profile && cd openproject && rm Gemfile.lock && git pull origin dev && RAILS_ENV=production ./bin/setup_dev && RAILS_ENV=production bundle exec rails assets:precompile && touch tmp/restart.txt && exit"
