@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+# shellcheck disable=SC1090
+source ~/.profile
+cd openproject
+rm -f Gemfile.lock
+git pull origin dev
+RAILS_ENV=production ./bin/setup_dev
+RAILS_ENV=production bundle exec rails assets:precompile
+touch tmp/restart.txt
