@@ -59,5 +59,6 @@ include:
     file: .gitlab-ci-tests.yml
 
 deploy-stage:
+  stage: deploy
   when: manual
   script: echo deploy  to stage
