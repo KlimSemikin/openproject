@@ -60,4 +60,4 @@ include:
 
 deploy-stage:
   when: manual
-  script: echo deploy to stage
+  script: echo deploy  to stage
