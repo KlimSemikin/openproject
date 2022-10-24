@@ -3,6 +3,13 @@ stages:
   - test
   - deploy
 
+include:
+  - project: openproject/XmlImport
+    ref: feature/improve_ci
+    file: .gitlab-ci-tests.yml
+
+  - local: gitlab_ci/.gitlab-ci-deploy.yml
+
 .db:
   cache:
     - key:
@@ -52,13 +59,9 @@ build:
       - frontend/src/locales/
       - frontend/src/app/features/plugins/
       - config/frontend_assets.manifest.json
-
-include:
-  - project: openproject/XmlImport
-    ref: feature/improve_ci
-    file: .gitlab-ci-tests.yml
-
-deploy-stage:
-  stage: deploy
   when: manual
-  script: echo deploy  to stage
+
+deploy-openproject-stage:
+  extends: .deploy-template
+  script:
+    - ssh $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS "source ~/.profile && cd openproject && rm Gemfile.lock && git pull origin dev && RAILS_ENV=production ./bin/setup_dev && RAILS_ENV=production bundle exec rails assets:precompile && touch tmp/restart.txt && exit"
