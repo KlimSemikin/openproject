@@ -62,8 +62,6 @@ build:
 deploy-openproject-stage:
   extends: .deploy-template
   script:
-    - apt-get update -qq
-    - apt-get install -yqq zip
     - zip -r build.zip public/assets/ public/javascripts/ frontend/src/locales/ frontend/src/app/features/plugins/ config/frontend_assets.manifest.json
     - scp build.zip $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS:/home/openproject/openproject
     - ssh $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS bash -s < bin/gitlab_ci/deploy_script

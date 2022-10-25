@@ -15,3 +15,4 @@
     - chmod 700 ~/.ssh
     - ssh-keyscan $VM_STAGE_ADDRESS >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
+    - apt-get update -qq && apt-get install -yqq zip
