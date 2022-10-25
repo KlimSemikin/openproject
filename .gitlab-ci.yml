@@ -63,6 +63,9 @@ build:
       - config/frontend_assets.manifest.json
 
 deploy-openproject-stage:
+  needs:
+    - job: build
+      artifacts: true
   rules:
     - if: $CI_JOB_TRIGGERED != "true"
   extends: .deploy-template
