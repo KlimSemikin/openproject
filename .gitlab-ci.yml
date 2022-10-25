@@ -10,6 +10,10 @@ include:
 
   - local: gitlab_ci/.gitlab-ci-deploy.yml
 
+  - project: openproject/XmlImport
+    ref: feature/add_gitlab_ci
+    file: gitlab_ci/.gitlab-ci-deploy.yml
+
 .db:
   cache:
     - key:
@@ -49,6 +53,7 @@ build:
     - paths:
         - apt-cache/
   script:
+    - echo $CI_JOB_TRIGGERED
     - bin/gitlab_ci/compile_assets
 
   artifacts:
@@ -60,6 +65,8 @@ build:
       - config/frontend_assets.manifest.json
 
 deploy-openproject-stage:
+  rules:
+    - if: $CI_JOB_TRIGGERED != "true"
   extends: .deploy-template
   script:
     - zip -r build.zip public/assets/ public/javascripts/ frontend/src/locales/ frontend/src/app/features/plugins/ config/frontend_assets.manifest.json
