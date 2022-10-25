@@ -4,6 +4,9 @@
   environment:
     name: staging
     url: http://$VM_STAGE_ADDRESS
+  needs:
+    - job: build
+      artifacts: true
   before_script:
     - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
     - eval $(ssh-agent -s)
