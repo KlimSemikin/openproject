@@ -9,8 +9,9 @@ rm -f Gemfile.lock
 git pull origin dev
 
 bundle install
-bundle exec rake db:migrate
+RAILS_ENV=production bundle exec rake db:migrate
 
+rm -rf public/assets
 unzip -o build.zip
 rm build.zip
 
