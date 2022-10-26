@@ -63,6 +63,7 @@ build:
       - frontend/src/app/features/plugins/
       - config/frontend_assets.manifest.json
       - plugins/
+      - Gemfile.plugins
 
 deploy-openproject-stage:
   needs:
