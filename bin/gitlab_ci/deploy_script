@@ -15,6 +15,4 @@ rm -rf public/assets
 unzip -o build.zip
 rm build.zip
 
-#RAILS_ENV=production ./bin/setup_dev
-#RAILS_ENV=production bundle exec rails assets:precompile
 touch tmp/restart.txt
