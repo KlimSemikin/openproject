@@ -52,7 +52,6 @@ build:
     - paths:
         - apt-cache/
   script:
-    - echo $CI_JOB_TRIGGERED
     - bin/gitlab_ci/compile_assets
 
   artifacts:
