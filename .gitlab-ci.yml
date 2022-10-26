@@ -4,13 +4,14 @@ stages:
   - deploy
 
 include:
+  - local: gitlab_ci/.gitlab-ci-deploy-template.yml
+
   - project: openproject/XmlImport
     ref: feature/improve_ci
     file:
+      - gitlab_ci/.gitlab-ci-clone.yml
       - gitlab_ci/.gitlab-ci-tests.yml
       - gitlab_ci/.gitlab-ci-deploy.yml
-
-  - local: gitlab_ci/.gitlab-ci-deploy-template.yml
 
 .db:
   cache:
