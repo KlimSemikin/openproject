@@ -5,7 +5,7 @@ stages:
 
 include:
   - project: openproject/XmlImport
-    ref: feature/add_gitlab_ci
+    ref: feature/improve_ci
     file:
       - gitlab_ci/.gitlab-ci-tests.yml
       - gitlab_ci/.gitlab-ci-deploy.yml
