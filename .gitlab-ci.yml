@@ -10,7 +10,7 @@ include:
       - gitlab_ci/.gitlab-ci-tests.yml
       - gitlab_ci/.gitlab-ci-deploy.yml
 
-  - local: gitlab_ci/.gitlab-ci-deploy.yml
+  - local: gitlab_ci/.gitlab-ci-deploy-template.yml
 
 .db:
   cache:
@@ -70,6 +70,5 @@ deploy-openproject-stage:
     - if: $CI_JOB_TRIGGERED != "true"
   extends: .deploy-template
   script:
-    - zip -r build.zip public/assets/ public/javascripts/ frontend/src/locales/ frontend/src/app/features/plugins/ config/frontend_assets.manifest.json
     - scp build.zip $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS:/home/openproject/openproject
     - ssh $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS bash -s < bin/gitlab_ci/deploy_script

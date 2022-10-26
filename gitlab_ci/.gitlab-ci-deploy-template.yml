@@ -13,3 +13,4 @@
     - ssh-keyscan $VM_STAGE_ADDRESS >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
     - apt-get update -qq && apt-get install -yqq zip
+    - zip -r build.zip public/assets/ public/javascripts/ frontend/src/locales/ frontend/src/app/features/plugins/ config/frontend_assets.manifest.json
