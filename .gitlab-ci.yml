@@ -65,10 +65,8 @@ build:
 deploy-openproject-stage:
   needs:
     - job: build
-      artifacts: true
   rules:
     - if: $CI_JOB_TRIGGERED != "true"
   extends: .deploy-template
   script:
-    - scp build.zip $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS:/home/openproject/openproject
-    - ssh $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS bash -s < bin/gitlab_ci/deploy_script
+    - ssh $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS bash -s < bin/gitlab_ci/deploy_hard
