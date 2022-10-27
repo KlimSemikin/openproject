@@ -13,5 +13,8 @@ git pull origin dev
 
 RAILS_ENV=production ./bin/setup_dev
 
+echo "Compiling assets ... "
+RAILS_ENV=production bundle exec rails assets:precompile
+
 echo "Restarting puma ... "
 touch tmp/restart.txt
