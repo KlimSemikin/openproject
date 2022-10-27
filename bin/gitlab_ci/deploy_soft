@@ -2,17 +2,26 @@
 
 set -e
 
+echo "Soft deploying to stage ... "
+
+echo "Going to directory, pulling changes from dev"
 # shellcheck disable=SC1090
 source ~/.profile
 cd openproject
 rm -f Gemfile.lock
 git pull origin dev
 
+echo "Deleting old assets, unpack build.zip file"
 rm -rf public/assets
 unzip -o build.zip
 rm build.zip
 
+echo "Bundling rails dependencies ... "
 bundle install
+echo "done."
+
+echo "Migrating database"
 RAILS_ENV=production bundle exec rake db:migrate
 
+echo "Restarting puma ... "
 touch tmp/restart.txt
