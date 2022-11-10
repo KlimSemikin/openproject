@@ -12,7 +12,7 @@ rm -f Gemfile.lock
 git pull origin dev
 
 echo "Deleting old assets, unpack build.zip file"
-rm -rf public/assets
+rm -rf public/assets plugins/XmlImport
 unzip -o build.zip
 rm build.zip
 
