@@ -441,6 +441,7 @@ ru:
         visible: "Видимый"
       custom_value:
         value: "Значение"
+        description: "Описание"
       enterprise_token:
         starts_at: "Действует с"
         expires_at: "Срок действия до"

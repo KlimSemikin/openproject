@@ -504,6 +504,7 @@ en:
         visible: "Visible"
       custom_value:
         value: "Value"
+        description: "Description"
       enterprise_token:
         starts_at: "Valid since"
         expires_at: "Expires at"
