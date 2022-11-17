@@ -466,7 +466,7 @@ class PermittedParams
           :possible_values,
           :multi_value,
           :content_right_to_left,
-          { custom_options_attributes: %i(id value default_value position) },
+          { custom_options_attributes: %i(id value default_value position description) },
           { type_ids: [] }
         ],
         enumeration: %i(
