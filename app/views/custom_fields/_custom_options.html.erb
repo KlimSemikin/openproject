@@ -37,6 +37,7 @@ See COPYRIGHT and LICENSE files for more details.
         <col opHighlightCol>
         <col opHighlightCol>
         <col opHighlightCol>
+        <col opHighlightCol>
         <col>
       </colgroup>
       <thead>
@@ -46,6 +47,15 @@ See COPYRIGHT and LICENSE files for more details.
             <div class="generic-table--sort-header">
                 <span>
                   <%= t('activerecord.attributes.custom_value.value') %>
+                </span>
+            </div>
+          </div>
+        </th>
+        <th>
+          <div class="generic-table--sort-header-outer">
+            <div class="generic-table--sort-header">
+                <span>
+                  <%= t('activerecord.attributes.custom_value.description') %>
                 </span>
             </div>
           </div>
@@ -85,6 +95,12 @@ See COPYRIGHT and LICENSE files for more details.
               <%= co_f.text_field :value,
                                   container_class: 'custom-option-value',
                                   no_label: true %>
+            </td>
+            <td>
+              <%= co_f.text_area :description,
+                                 container_class: 'custom-option-description',
+                                 cols: 30,
+                                 no_label: true %>
             </td>
             <td>
               <%= co_f.check_box :default_value,
