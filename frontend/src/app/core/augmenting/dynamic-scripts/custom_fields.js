@@ -200,6 +200,12 @@
     value.attr("id", "custom_field_custom_options_attributes_" + count + "_value");
     value.val("");
 
+    var description = dup.find(".custom-option-description textarea");
+
+    description.attr("name", "custom_field[custom_options_attributes][" + count + "][description]");
+    description.attr("id", "custom_field_custom_options_attributes_" + count + "_description");
+    description.val("");
+
     var defaultValueContainer = dup.find(".custom-option-default-value");
     var defaultValueCheckbox = defaultValueContainer.find('input[type="checkbox"]');
     var defaultValueHidden = defaultValueContainer.find('input[type="hidden"]');
