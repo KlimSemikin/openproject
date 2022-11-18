@@ -9,7 +9,8 @@ echo "Going to directory, pulling changes from dev"
 source ~/.profile
 cd openproject
 rm -f Gemfile.lock
-git pull origin dev
+
+git fetch && git checkout "$CI_COMMIT_BRANCH"
 
 RAILS_ENV=production ./bin/setup_dev
 

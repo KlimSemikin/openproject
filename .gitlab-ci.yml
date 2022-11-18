@@ -68,4 +68,4 @@ deploy-openproject-stage:
     - if: $CI_JOB_TRIGGERED != "true"
   extends: .deploy-template
   script:
-    - ssh $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS bash -s < bin/gitlab_ci/deploy_hard
+    - ssh $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS CI_COMMIT_BRANCH="$CI_COMMIT_BRANCH" bash -s < bin/gitlab_ci/deploy_hard

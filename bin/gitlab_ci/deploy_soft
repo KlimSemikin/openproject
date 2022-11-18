@@ -9,7 +9,6 @@ echo "Going to directory, pulling changes from dev"
 source ~/.profile
 cd openproject
 rm -f Gemfile.lock
-git pull origin dev
 
 echo "Deleting old assets, unpack build.zip file"
 rm -rf public/assets plugins/XmlImport
