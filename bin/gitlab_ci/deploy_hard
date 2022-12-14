@@ -11,7 +11,7 @@ cd openproject
 rm -f Gemfile.lock
 
 git fetch && git checkout "$CI_COMMIT_BRANCH"
-
+git pull
 RAILS_ENV=production ./bin/setup_dev
 
 echo "Compiling assets ... "
