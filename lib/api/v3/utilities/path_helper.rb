@@ -263,6 +263,10 @@ module API
             "#{notification(id)}/unread_ian"
           end
 
+          def self.notification_detail(notification_id, detail_id)
+            "#{notification(notification_id)}/details/#{detail_id}"
+          end
+
           index :placeholder_user
           show :placeholder_user
 
@@ -278,6 +282,10 @@ module API
             alias :issue_priorities :priorities
             alias :issue_priority :priority
           end
+
+          show :oauth_application
+
+          show :oauth_client_credentials
 
           resources :project
 
@@ -438,8 +446,16 @@ module API
             "#{user(id)}/preferences"
           end
 
+          def self.my_preferences
+            "#{root}/my_preferences"
+          end
+
           index :group
           show :group
+
+          def self.value_schema(property)
+            "#{root}/values/schemas/#{property}"
+          end
 
           resources :version
 
