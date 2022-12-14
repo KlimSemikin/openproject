@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+echo "Soft deploying to stage ... "
+
+echo "Going to directory, pulling changes from dev"
+# shellcheck disable=SC1090
+source ~/.profile
+cd openproject
+rm -f Gemfile.lock
+
+git fetch && git checkout "$CI_COMMIT_BRANCH"
+
+RAILS_ENV=production ./bin/setup_dev
+
+echo "Compiling assets ... "
+RAILS_ENV=production bundle exec rails assets:precompile
+
+echo "Restarting puma ... "
+touch tmp/restart.txt

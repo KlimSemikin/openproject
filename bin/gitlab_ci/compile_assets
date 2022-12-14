@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+echo "Installing nodejs, npm"
+export APT_CACHE_DIR=$(pwd)/apt-cache && mkdir -pv "$APT_CACHE_DIR"
+apt-get update -qq
+curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -yqq nodejs
+node -v
+npm -v
+
+echo "Collect node_modules"
+cd frontend && npm ci --cache .npm --prefer-offline
+
+cd ..
+
+echo "Compiling public assets"
+bundle exec rails assets:precompile
