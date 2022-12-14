@@ -28,6 +28,7 @@
 
 class Journal < ApplicationRecord
   self.table_name = 'journals'
+  self.ignored_columns += ['activity_type']
 
   include ::JournalChanges
   include ::JournalFormatter
@@ -46,14 +47,17 @@ class Journal < ApplicationRecord
   belongs_to :journable, polymorphic: true
   belongs_to :data, polymorphic: true, dependent: :destroy
 
-  has_many :attachable_journals, class_name: 'Journal::AttachableJournal', dependent: :destroy
-  has_many :customizable_journals, class_name: 'Journal::CustomizableJournal', dependent: :destroy
+  has_many :attachable_journals, class_name: 'Journal::AttachableJournal', dependent: :delete_all
+  has_many :customizable_journals, class_name: 'Journal::CustomizableJournal', dependent: :delete_all
 
   has_many :notifications, dependent: :destroy
 
   # Scopes to all journals excluding the initial journal - useful for change
   # logs like the history on issue#show
   scope :changing, -> { where(['version > 1']) }
+
+  scope :for_wiki_content, -> { where(journable_type: "WikiContent") }
+  scope :for_work_package, -> { where(journable_type: "WorkPackage") }
 
   # In conjunction with the included Comparable module, allows comparison of journal records
   # based on their corresponding version numbers, creation timestamps and IDs.
@@ -91,11 +95,11 @@ class Journal < ApplicationRecord
   end
 
   def new_value_for(prop)
-    details[prop].last if details.keys.include? prop
+    details[prop].last if details.key? prop
   end
 
   def old_value_for(prop)
-    details[prop].first if details.keys.include? prop
+    details[prop].first if details.key? prop
   end
 
   def previous

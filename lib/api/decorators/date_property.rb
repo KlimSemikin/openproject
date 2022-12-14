@@ -37,6 +37,10 @@ module API
         base.extend ClassMethods
       end
 
+      def datetime_formatter
+        ::API::V3::Utilities::DateTimeFormatter
+      end
+
       module ClassMethods
         def date_property(name,
                           getter: default_date_getter(name),
@@ -107,18 +111,18 @@ module API
 
         def default_duration_getter(name)
           ->(represented:, decorator:, **) {
-            decorator.datetime_formatter.format_duration_from_hours(represented.send(name), allow_nil: true)
+            decorator.datetime_formatter.format_duration_from_days(represented.send(name), allow_nil: true)
           }
         end
 
         def default_duration_setter(name)
           ->(fragment:, decorator:, **) {
-            hours = decorator
-                    .datetime_formatter
-                    .parse_duration_to_hours(fragment,
-                                             name.to_s.camelize(:lower),
-                                             allow_nil: true)
-            send(:"#{name}=", hours)
+            days = decorator
+                   .datetime_formatter
+                   .parse_duration_to_days(fragment,
+                                           name.to_s.camelize(:lower),
+                                           allow_nil: true)
+            send(:"#{name}=", days)
           }
         end
       end

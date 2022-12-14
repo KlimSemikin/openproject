@@ -11,8 +11,13 @@
   > .spot-body-small,
   > .spot-caption,
   > .spot-divider,
+  > .spot-selector-field,
+  > .spot-form-field,
   > .spot-text-field
     margin: $spot-spacing-1 $spot-spacing-1 0
+
+    &:first-child
+      margin-top: $spot-spacing-0_5
 
     &:last-child
       margin-bottom: $spot-spacing-1
@@ -20,3 +25,8 @@
   > .spot-list
     margin: $spot-spacing-1 0
 
+  > .spot-breadcrumbs
+    margin: $spot-spacing-0_5 $spot-spacing-1 0
+
+    + .spot-list
+      margin-top: $spot-spacing-0_5

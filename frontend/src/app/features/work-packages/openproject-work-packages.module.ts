@@ -157,8 +157,7 @@ import { WorkPackageCopyFullViewComponent } from 'core-app/features/work-package
 import { OpenprojectTabsModule } from 'core-app/shared/components/tabs/openproject-tabs.module';
 import { TimeEntryChangeset } from 'core-app/features/work-packages/helpers/time-entries/time-entry-changeset';
 
-import { AttachmentsUploadComponent } from 'core-app/shared/components/attachments/attachments-upload/attachments-upload.component';
-import { AttachmentListComponent } from 'core-app/shared/components/attachments/attachment-list/attachment-list.component';
+import { OpAttachmentsComponent } from 'core-app/shared/components/attachments/attachments.component';
 import { QueryFiltersComponent } from 'core-app/features/work-packages/components/filters/query-filters/query-filters.component';
 import { FilterDateTimesValueComponent } from 'core-app/features/work-packages/components/filters/filter-date-times-value/filter-date-times-value.component';
 import { FilterSearchableMultiselectValueComponent } from 'core-app/features/work-packages/components/filters/filter-searchable-multiselect-value/filter-searchable-multiselect-value.component';
@@ -177,7 +176,7 @@ import { WorkPackageMarkNotificationButtonComponent } from 'core-app/features/wo
 import { WorkPackageFilesTabComponent } from 'core-app/features/work-packages/components/wp-single-view-tabs/files-tab/op-files-tab.component';
 import { WorkPackagesQueryViewService } from 'core-app/features/work-packages/components/wp-list/wp-query-view.service';
 import isNewResource from 'core-app/features/hal/helpers/is-new-resource';
-import { OpenprojectFileLinksModule } from 'core-app/shared/components/file-links/openproject-file-links.module';
+import { OpenprojectStoragesModule } from 'core-app/shared/components/storages/openproject-storages.module';
 import { FileLinksResourceService } from 'core-app/core/state/file-links/file-links.service';
 import { StoragesResourceService } from 'core-app/core/state/storages/storages.service';
 import { DatepickerBannerComponent } from 'core-app/shared/components/datepicker/banner/datepicker-banner.component';
@@ -185,6 +184,7 @@ import { SingleDateModalComponent } from 'core-app/shared/components/datepicker/
 import { MultiDateModalComponent } from 'core-app/shared/components/datepicker/multi-date-modal/multi-date.modal';
 import { DatepickerWorkingDaysToggleComponent } from 'core-app/shared/components/datepicker/toggle/datepicker-working-days-toggle.component';
 import { DatepickerSchedulingToggleComponent } from 'core-app/shared/components/datepicker/scheduling-mode/datepicker-scheduling-toggle.component';
+import { StorageFilesResourceService } from 'core-app/core/state/storage-files/storage-files.service';
 
 @NgModule({
   imports: [
@@ -209,7 +209,7 @@ import { DatepickerSchedulingToggleComponent } from 'core-app/shared/components/
 
     EditFieldControlsModule,
     OpenprojectTabsModule,
-    OpenprojectFileLinksModule,
+    OpenprojectStoragesModule,
   ],
   providers: [
     // Notification service
@@ -240,6 +240,7 @@ import { DatepickerSchedulingToggleComponent } from 'core-app/shared/components/
 
     HalEventsService,
     FileLinksResourceService,
+    StorageFilesResourceService,
 
     StoragesResourceService,
   ],
@@ -483,9 +484,7 @@ export class OpenprojectWorkPackagesModule {
       return null;
     });
 
-    hookService.register('workPackageAttachmentUploadComponent', () => AttachmentsUploadComponent);
-
-    hookService.register('workPackageAttachmentListComponent', () => AttachmentListComponent);
+    hookService.register('workPackageAttachmentListComponent', () => OpAttachmentsComponent);
 
     /** Return specialized work package changeset for editing service */
     hookService.register('halResourceChangesetClass', (resource:HalResource) => {

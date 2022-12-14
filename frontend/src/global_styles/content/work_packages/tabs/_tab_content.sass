@@ -31,27 +31,30 @@
     margin-bottom: $spot-spacing-2
 
     &_no-header
-      .op-files-tab--file-list .op-files-tab--file-list-item:first-child
+      .op-file-list .op-file-list--item:first-child
         margin-top: 0
 
     .op-files-tab--storage-info-box:not(:last-child)
       margin-bottom: $spot-spacing-1
 
-    .op-files-tab--file-list-actions
-      margin-top: $spot-spacing-0_75
-
   &--header
     border-bottom: 1px solid #ddd
-    padding-bottom: $spot-spacing-0-75
+    padding-bottom: $spot-spacing-0_75
     display: flex
     align-items: center
+    position: sticky
+    top: 0
+    background: $spot-color-basic-white
+    z-index: 1
 
     &-text
       line-height: $spot-spacing-1_5
       font-weight: 700
       text-transform: uppercase
 
-    .spot-icon
-      width: $spot-spacing-1_5
-      height: $spot-spacing-1_5
-      margin-right: $spot-spacing-0-5
+    &-icon
+      margin-right: $spot-spacing-0_5
+
+    &-action:not(:first-child)
+      @include spot-caption()
+      margin-left: $spot-spacing-0_25
