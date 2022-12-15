@@ -2,7 +2,7 @@
 
 set -e
 
-echo "Soft deploying to stage ... "
+echo "Hard deploying to stage ... "
 
 echo "Going to directory, pulling changes from dev"
 # shellcheck disable=SC1090
