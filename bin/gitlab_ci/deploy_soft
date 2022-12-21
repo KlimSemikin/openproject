@@ -11,16 +11,14 @@ cd openproject
 rm -f Gemfile.lock
 
 echo "Deleting old assets, unpack build.zip file"
-rm -rf public/assets plugins/XmlImport
+rm -rf plugins/XmlImport
 unzip -o build.zip
 rm build.zip
 
-echo "Bundling rails dependencies ... "
-bundle install
-echo "done."
+RAILS_ENV=production ./bin/setup_dev
 
-echo "Migrating database"
-RAILS_ENV=production bundle exec rake db:migrate
+echo "Compiling assets ... "
+RAILS_ENV=production bundle exec rails assets:precompile
 
 echo "Restarting puma ... "
 touch tmp/restart.txt
