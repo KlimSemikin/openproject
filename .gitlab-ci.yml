@@ -11,7 +11,7 @@ include:
       - gitlab_ci/.gitlab-ci-clone.yml
       - gitlab_ci/.gitlab-ci-tests.yml
       - gitlab_ci/.gitlab-ci-deploy.yml
-    ref: add_projects_import
+    ref: feature/add_projects_import
 
 .db:
   cache:
