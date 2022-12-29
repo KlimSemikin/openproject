@@ -41,6 +41,8 @@ module API
         property :id
 
         property :value
+
+        property :description
       end
     end
   end
