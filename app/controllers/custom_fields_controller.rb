@@ -32,6 +32,7 @@ class CustomFieldsController < ApplicationController
   before_action :require_admin
   before_action :find_custom_field, only: %i(edit update destroy delete_option reorder_alphabetical)
   before_action :prepare_custom_option_position, only: %i(update create)
+  before_action :prepare_custom_nested_options, only: %i(create)
   before_action :find_custom_option, only: :delete_option
 
   def index
@@ -157,6 +158,52 @@ class CustomFieldsController < ApplicationController
     params[:custom_field][:custom_options_attributes].each do |_id, attributes|
       attributes[:position] = (index = index + 1)
     end
+  end
+
+  def fake_custom_field_params
+    return {
+        "0"=>{"value"=>"wd", "description"=>"description1", "tree_params"=>{"parent_id"=>"null", "position"=>"0"}},
+        "1"=>{"value"=>"value2", "description"=>"description2", "tree_params"=>{"parent_id"=>"0", "position"=>"0"}},
+        "2"=>{"value"=>"value3", "description"=>"description3", "tree_params"=>{"parent_id"=>"0", "position"=>"1"}},
+        "3"=>{"value"=>"value4", "description"=>"description4", "tree_params"=>{"parent_id"=>"2", "position"=>"0"}},
+        "4"=>{"value"=>"value5", "description"=>"description5", "tree_params"=>{"parent_id"=>"2", "position"=>"1"}},
+        "5"=>{"value"=>"value6", "description"=>"description6", "tree_params"=>{"parent_id"=>"null", "position"=>"1"}},
+        "6"=>{"value"=>"value7", "description"=>"description7", "tree_params"=>{"parent_id"=>"5", "position"=>"0"}},
+        "7"=>{"value"=>"value8", "description"=>"description8", "tree_params"=>{"parent_id"=>"6", "position"=>"0"}},
+        "8"=>{"value"=>"value9", "description"=>"description9", "tree_params"=>{"parent_id"=>"6", "position"=>"1"}},
+        "9"=>{"value"=>"value10", "description"=>"description10", "tree_params"=>{"parent_id"=>"6", "position"=>"2"}},
+        "10"=>{"value"=>"value11", "description"=>"description11", "tree_params"=>{"parent_id"=>"5", "position"=>"1"}},
+        "11"=>{"value"=>"value12", "description"=>"description12", "tree_params"=>{"parent_id"=>"null", "position"=>"2"}}
+      }
+  end
+
+  def prepare_custom_nested_options
+    params[:custom_field].merge!(custom_nested_options_attributes: fake_custom_field_params)
+
+    return unless params[:custom_field][:custom_nested_options_attributes]
+
+    node_ids = create_custom_nested_options
+
+    params[:custom_field].delete(:custom_nested_options_attributes)
+    params[:custom_field].merge!(custom_nested_option_ids: node_ids.values)
+  end
+
+  def create_custom_nested_options
+    node_ids = {} # { "0"=>id }
+
+    params[:custom_field][:custom_nested_options_attributes].each do |tmp_id, attributes|
+      tree_params = attributes.delete("tree_params")
+      custom_option = CustomNestedOption.new(attributes.permit!)
+      tmp_parent_id = tree_params["parent_id"]
+
+      custom_option.parent_id = node_ids[tmp_parent_id] unless tmp_parent_id == "null"
+      custom_option.position = tree_params["position"]
+
+      custom_option.save!
+      node_ids[tmp_id] = custom_option.id
+    end
+
+    return node_ids
   end
 
   def find_custom_field

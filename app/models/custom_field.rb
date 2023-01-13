@@ -41,12 +41,22 @@ class CustomField < ApplicationRecord
            inverse_of: 'custom_field'
   accepts_nested_attributes_for :custom_options
 
+  has_many :custom_nested_options,
+           dependent: :delete_all,
+           inverse_of: 'custom_field'
+  accepts_nested_attributes_for :custom_nested_options
+
   acts_as_list scope: [:type]
 
   validates :field_format, presence: true
   validates :custom_options,
             presence: { message: ->(*) { I18n.t(:'activerecord.errors.models.custom_field.at_least_one_custom_option') } },
             if: ->(*) { field_format == 'list' }
+
+  validates :custom_nested_options,
+            presence: { message: ->(*) { I18n.t(:'activerecord.errors.models.custom_field.at_least_one_custom_option') } },
+            if: ->(*) { field_format == 'tree' }
+
   validates :name, presence: true, length: { maximum: 256 }
 
   validate :uniqueness_of_name_with_scope
@@ -79,7 +89,7 @@ class CustomField < ApplicationRecord
   end
 
   def default_value
-    if list?
+    if list? || tree?
       ids = custom_options.select(&:default_value).map(&:id)
 
       if multi_value?
@@ -133,6 +143,8 @@ class CustomField < ApplicationRecord
       possible_version_values_options(obj)
     when 'list'
       possible_list_values_options
+    when 'tree'
+      possible_tree_values_options
     else
       possible_values
     end
@@ -157,6 +169,8 @@ class CustomField < ApplicationRecord
       possible_values_options(obj).map(&:last)
     when 'list'
       custom_options
+    when 'tree'
+      custom_nested_options
     else
       read_attribute(:possible_values)
     end
@@ -184,7 +198,7 @@ class CustomField < ApplicationRecord
     casted = nil
     if value.present?
       case field_format
-      when 'string', 'text', 'list'
+      when 'string', 'text', 'list', 'tree'
         casted = value
       when 'date'
         casted = begin; value.to_date; rescue StandardError; nil end
@@ -256,6 +270,10 @@ class CustomField < ApplicationRecord
     field_format == "bool"
   end
 
+  def tree?
+    field_format == "tree"
+  end
+
   def multi_value?
     multi_value
   end
@@ -298,6 +316,10 @@ class CustomField < ApplicationRecord
   end
 
   def possible_list_values_options
+    possible_values.map { |option| [option.value, option.id.to_s] }
+  end
+
+  def possible_tree_values_options
     possible_values.map { |option| [option.value, option.id.to_s] }
   end
 

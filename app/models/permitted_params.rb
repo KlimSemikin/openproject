@@ -475,7 +475,9 @@ class PermittedParams
           :multi_value,
           :content_right_to_left,
           { custom_options_attributes: %i(id value default_value position description) },
-          { type_ids: [] }
+          { custom_nested_options_attributes: %i(id value default_value position description parent_id) },
+          { type_ids: [] },
+          { custom_nested_option_ids: [] }
         ],
         enumeration: %i(
           active

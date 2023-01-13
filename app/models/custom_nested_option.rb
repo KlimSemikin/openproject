@@ -12,7 +12,7 @@ class CustomNestedOption < ApplicationRecord
   alias :name :to_s
 
   # makes virtual modal CustomNestedOptionHierarchy available
-  has_closure_tree name_column: :value, dependent: :destroy, order: 'sort_order', numeric_order: true
+  has_closure_tree name_column: :value, dependent: :destroy, order: 'position'
 
   protected
 
