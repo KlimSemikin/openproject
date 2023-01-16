@@ -76,6 +76,7 @@ import { PasswordConfirmationModalComponent } from 'core-app/shared/components/m
 import { WpPreviewModalComponent } from 'core-app/shared/components/modals/preview-modal/wp-preview-modal/wp-preview.modal';
 import { OpHeaderProjectSelectComponent } from 'core-app/shared/components/header-project-select/header-project-select.component';
 import { OpHeaderProjectSelectListComponent } from 'core-app/shared/components/header-project-select/list/header-project-select-list.component';
+import { OpenprojectCustomFieldsModule } from 'core-app/features/custom-fields/openproject-custom-fields.module'
 
 import { PaginationService } from 'core-app/shared/components/table-pagination/pagination-service';
 import { MainMenuResizerComponent } from 'core-app/shared/components/resizer/resizer/main-menu-resizer.component';
@@ -199,6 +200,9 @@ export function initializeServices(injector:Injector) {
 
     // Loading
     OpenprojectContentLoaderModule,
+    
+    // Custom fields module (hierarchical list)
+    OpenprojectCustomFieldsModule
   ],
   providers: [
     { provide: States, useValue: new States() },

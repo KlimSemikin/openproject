@@ -203,6 +203,10 @@ import {
   CalendarSidemenuComponent,
   opCalendarSidemenuSelector,
 } from 'core-app/features/calendar/sidemenu/calendar-sidemenu.component';
+import {
+  HierarchicalListComponent,
+  cfHierachicalListSelector,
+} from 'core-app/features/custom-fields/hierarchical-list/hierarchical-list.component';
 import { OpModalOverlayComponent, opModalOverlaySelector } from 'core-app/shared/components/modal/modal-overlay.component';
 
 export const globalDynamicComponents:OptionalBootstrapDefinition[] = [
@@ -250,6 +254,7 @@ export const globalDynamicComponents:OptionalBootstrapDefinition[] = [
   { selector: opViewSelectSelector, cls: ViewSelectComponent },
   { selector: opTeamPlannerSidemenuSelector, cls: TeamPlannerSidemenuComponent },
   { selector: opCalendarSidemenuSelector, cls: CalendarSidemenuComponent },
+  { selector: cfHierachicalListSelector, cls: HierarchicalListComponent },
   { selector: triggerActionsEntryComponentSelector, cls: TriggerActionsEntryComponent, embeddable: true },
   { selector: backlogsPageComponentSelector, cls: BacklogsPageComponent },
   { selector: attributeValueMacro, cls: AttributeValueMacroComponent, embeddable: true },
