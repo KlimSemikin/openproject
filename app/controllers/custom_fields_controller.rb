@@ -178,7 +178,7 @@ class CustomFieldsController < ApplicationController
   end
 
   def prepare_custom_nested_options
-    params[:custom_field].merge!(custom_nested_options_attributes: fake_custom_field_params)
+    # params[:custom_field].merge!(custom_nested_options_attributes: fake_custom_field_params)
 
     return unless params[:custom_field][:custom_nested_options_attributes]
 
