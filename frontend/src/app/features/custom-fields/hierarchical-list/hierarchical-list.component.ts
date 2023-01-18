@@ -5,14 +5,18 @@ import {
   HostBinding,
   Input,
   OnInit,
-  ViewEncapsulation
+  Injector,
+  ViewEncapsulation,
+  ViewChild
 } from '@angular/core';
 import { UntilDestroyedMixin } from 'core-app/shared/helpers/angular/until-destroyed.mixin';
 import { CurrentUserService } from 'core-app/core/current-user/current-user.service';
 import { CurrentProjectService } from 'core-app/core/current-project/current-project.service';
 import { I18nService } from 'core-app/core/i18n/i18n.service';
 import { populateInputsFromDataset } from 'core-app/shared/components/dataset-inputs';
-import { ITreeOptions } from '@circlon/angular-tree-component';
+import { ITreeOptions, TreeComponent } from '@circlon/angular-tree-component';
+import { PathHelperService } from 'core-app/core/path-helper/path-helper.service';
+import { random } from 'lodash';
 
 export const cfHierachicalListSelector = 'cf-hierarchical-list';
 
@@ -24,7 +28,22 @@ export const cfHierachicalListSelector = 'cf-hierarchical-list';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HierarchicalListComponent implements OnInit {
+  @Input() public customOptions:any;
+
   ngOnInit(): void {
+    console.log(this.customOptions)
+  }
+
+  ngAfterViewInit() {
+    this.tree.treeModel.expandAll()
+  }
+
+  constructor(
+    readonly elementRef:ElementRef,
+    readonly injector:Injector,
+    readonly pathHelper:PathHelperService
+  ) {
+    populateInputsFromDataset(this);
   }
 
   nodes = [
@@ -40,13 +59,13 @@ export class HierarchicalListComponent implements OnInit {
     {
       id: 4,
       value: 'root2',
-      description: '',
+      description: 'description2',
       children: [
-        { id: 5, value: 'child2.1', description: '' },
+        { id: 5, value: 'child2.1', description: 'description2' },
         {
           id: 6,
           value: 'child2.2',
-          description: '',
+          description: 'description2',
           children: [
             { id: 7, value: 'subsub', description: 'description7' }
           ]
@@ -54,6 +73,17 @@ export class HierarchicalListComponent implements OnInit {
       ]
     }
   ];
+
+  @ViewChild(TreeComponent)
+  private tree: TreeComponent;
+
+  addNode() {
+    let lastNode = this.nodes.slice(-1)
+    console.log(lastNode)
+    this.nodes.push({ id: Math.floor(Math.random() * 1000), value: '', description: '', children: []});
+    
+    this.tree.treeModel.update();
+  }
 
   // options = {
   //   allowDrag: (node: { isLeaf: any; }) => node.isLeaf,
@@ -64,8 +94,7 @@ export class HierarchicalListComponent implements OnInit {
   // };
   
   options: ITreeOptions = {
-    allowDrag: true,
-    idField: 'uuid'
+    allowDrag: true
   };
 
   onMoveNode($event:any) {

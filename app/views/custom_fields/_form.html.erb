@@ -134,7 +134,10 @@ See COPYRIGHT and LICENSE files for more details.
     <% if @custom_field.new_record? || @custom_field.tree? %>
       <legend class="form--fieldset-legend"><%= I18n.t("activerecord.attributes.custom_field.possible_values") %></legend>
       <div class="form--field">
-        <%= angular_component_tag 'cf-hierarchical-list' %>
+        <%= angular_component_tag 'cf-hierarchical-list', inputs: {
+                                                            customOptions: @custom_field.custom_nested_options,
+                                                          }
+        %>
       </div>
     <% end %>
   </fieldset>

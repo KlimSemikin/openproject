@@ -11,7 +11,7 @@
           <div class="generic-table--sort-header-outer">
             <div class="generic-table--sort-header">
                 <span>
-                  Value
+                  Значение
                 </span>
             </div>
           </div>
@@ -20,7 +20,7 @@
           <div class="generic-table--sort-header-outer">
             <div class="generic-table--sort-header">
                 <span>
-                  Description
+                  Описание
                 </span>
             </div>
           </div>
@@ -31,6 +31,7 @@
       <tbody>
         <tr class="custom-option-row">
           <tree-root 
+            #tree
             (moveNode)="onMoveNode($event)"
             [nodes]="nodes"
             [options]="options">
@@ -49,23 +50,29 @@
                       type="text"
                       name="custom_field[custom_options_attributes][0][value]"
                       id="custom_field_custom_options_attributes_0_value"
+                      [(ngModel)]="node.data.value" 
                       [value]="node.data.value">
                   </span>
                 </td>
                 <td>
                   <span class="form--text-area-container custom-option-description">
-                      <textarea container_class="custom-option-description"
-                        class="form--text-area"
-                        name="custom_field[custom_options_attributes][0][description]"
-                        id="custom_field_custom_options_attributes_0_description"
-                        [value]="node.data.description"></textarea>
+                    <textarea container_class="custom-option-description"
+                      class="form--text-area"
+                      name="custom_field[custom_options_attributes][0][description]"
+                      id="custom_field_custom_options_attributes_0_description"
+                      [(ngModel)]="node.data.description" 
+                      [value]="node.data.description"></textarea>
                   </span>
                 </td>
               </div>
             </ng-template>
+
           </tree-root>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+<a class="icon icon-add" id="add-custom-ndested-option" (click)="addNode()">
+  Добавить
+</a>
