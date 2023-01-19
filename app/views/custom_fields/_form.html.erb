@@ -129,19 +129,6 @@ See COPYRIGHT and LICENSE files for more details.
     <% end %>
     </div>
   </div>
-
-  <fieldset class="form--fieldset" id="custom_field_tree_component" style="display:none">
-    <% if @custom_field.new_record? || @custom_field.tree? %>
-      <legend class="form--fieldset-legend"><%= I18n.t("activerecord.attributes.custom_field.possible_values") %></legend>
-      <div class="form--field">
-        <%= angular_component_tag 'cf-hierarchical-list', inputs: {
-                                                            customOptions: @custom_field.custom_nested_options,
-                                                          }
-        %>
-      </div>
-    <% end %>
-  </fieldset>
-  
   <%= call_hook(:view_custom_fields_form_upper_box, custom_field: @custom_field, form: f) %>
 </section>
 

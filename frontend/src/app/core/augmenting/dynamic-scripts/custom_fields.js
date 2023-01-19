@@ -46,8 +46,7 @@
         spanDefaultText       = $('#default_value_text'),
         spanDefaultLongText   = $('#default_value_long_text'),
         spanDefaultBool       = $('#default_value_bool'),
-        textOrientationField  = $('#custom_field_text_orientation'),
-        treeComponent         = $('#custom_field_tree_component');
+        textOrientationField  = $('#custom_field_text_orientation');
 
     var deactivate = function(element) {
       element.hide().find('input, textarea').not('.destroy_flag,.-cf-ignore-disabled').attr('disabled', true);
@@ -77,7 +76,6 @@
       switch (format.val()) {
         case 'list':
           deactivate(defaultValueFields);
-          deactivate(treeComponent);
           hide(lengthField, regexpField, defaultValueFields);
           show(searchable, multiSelect);
           activate(multiSelect);
@@ -87,21 +85,18 @@
           activate(spanDefaultBool);
           deactivate(spanDefaultText);
           deactivate(possibleValues);
-          deactivate(treeComponent);
           hide(lengthField, regexpField, searchable);
           unsearchable();
           break;
         case 'date':
           deactivate(defaultValueFields);
           deactivate(possibleValues);
-          deactivate(treeComponent);
           hide(lengthField, regexpField, defaultValueFields);
           unsearchable();
           break;
         case 'float':
         case 'int':
           deactivate(possibleValues);
-          deactivate(treeComponent);
           show(lengthField, regexpField);
           unsearchable();
           break;
@@ -111,7 +106,6 @@
         case 'version':
           deactivate(defaultValueFields);
           deactivate(possibleValues);
-          deactivate(treeComponent);
           hide(lengthField, regexpField, defaultValueFields);
           unsearchable();
           break;
@@ -120,21 +114,11 @@
           deactivate(spanDefaultText);
           show(lengthField, regexpField, searchable, textOrientationField);
           deactivate(possibleValues);
-          deactivate(treeComponent);
           activate(textOrientationField);
-          break;
-        case 'tree':
-          deactivate(defaultValueFields);
-          deactivate(possibleValues);
-          deactivate(multiSelect);
-          hide(lengthField, regexpField, defaultValueFields);
-          show(searchable);
-          activate(treeComponent);
           break;
         default:
           show(lengthField, regexpField, searchable);
           deactivate(possibleValues);
-          deactivate(treeComponent);
           break;
       }
     };
