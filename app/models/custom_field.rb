@@ -53,10 +53,6 @@ class CustomField < ApplicationRecord
             presence: { message: ->(*) { I18n.t(:'activerecord.errors.models.custom_field.at_least_one_custom_option') } },
             if: ->(*) { field_format == 'list' }
 
-  validates :custom_nested_options,
-            presence: { message: ->(*) { I18n.t(:'activerecord.errors.models.custom_field.at_least_one_custom_option') } },
-            if: ->(*) { field_format == 'tree' }
-
   validates :name, presence: true, length: { maximum: 256 }
 
   validate :uniqueness_of_name_with_scope

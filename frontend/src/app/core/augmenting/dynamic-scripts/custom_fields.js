@@ -116,6 +116,13 @@
           deactivate(possibleValues);
           activate(textOrientationField);
           break;
+        case 'tree':
+          deactivate(defaultValueFields);
+          deactivate(possibleValues);
+          deactivate(multiSelect);
+          hide(lengthField, regexpField, defaultValueFields);
+          show(searchable);
+          break;
         default:
           show(lengthField, regexpField, searchable);
           deactivate(possibleValues);
