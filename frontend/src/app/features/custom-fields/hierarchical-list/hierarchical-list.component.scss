@@ -38,3 +38,15 @@ tree-node:last-child > .tree-node > .tree-children::after {
 .toggle-children {
   z-index: 1;
 }
+
+.header-val {
+font-size: var(--generic-table--header-font-size);
+text-transform: uppercase;
+text-align: left;
+font-weight: 700;
+font-family: var(--body-font-family);
+}
+.grid{
+  display: grid;
+  grid-template-columns:   repeat(2, 1fr);
+}
