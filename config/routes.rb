@@ -318,6 +318,9 @@ OpenProject::Application.routes.draw do
           constraints: { rev: /[\w0-9.\-_]+/, repo_path: /.*/ },
           as: 'show_revisions_path'
     end
+
+    # Routes for trees (directories)
+    resources :trees, only: %i[index show]
   end
 
   resources :admin, controller: :admin, only: :index do

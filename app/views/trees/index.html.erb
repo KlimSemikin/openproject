@@ -1,0 +1,9 @@
+<% html_title(t(:label_tree_plural)) -%>
+
+<%= toolbar title: t(:label_tree_plural) do %>
+
+<% end %>
+
+<% @trees.each do |cf| %>
+  <div><%= cf.name %></div>
+<% end %>
