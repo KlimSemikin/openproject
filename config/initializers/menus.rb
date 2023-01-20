@@ -504,4 +504,10 @@ Redmine::MenuManager.map :project_menu do |menu|
               caption:,
               parent: :settings
   end
+
+  menu.push :trees,
+            { controller: '/trees', action: 'index' },
+            caption: :label_tree_plural,
+            before: :activity,
+            icon: 'icon2 icon-notes'
 end

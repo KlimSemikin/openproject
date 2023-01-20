@@ -128,6 +128,11 @@ Rails.application.reloader.to_prepare do
                      },
                      require: :member,
                      contract_actions: { projects: %i[copy] }
+
+      # Permissions for trees (directories)
+      map.permission :view_trees,
+                     { trees: %i[index show] },
+                     require: :member
     end
 
     map.project_module :work_package_tracking, order: 90 do |wpt|
