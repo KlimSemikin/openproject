@@ -1975,6 +1975,7 @@ en:
   label_topic_plural: "Topics"
   label_total: "Total"
   label_tree: "Tree"
+  label_tree_plural: "Directories"
   label_type_new: "New type"
   label_type_plural: "Types"
   label_ui: "User Interface"
