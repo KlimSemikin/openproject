@@ -1,9 +1,10 @@
 class TreesController < ApplicationController
-  include PaginationHelper
+  model_object CustomField
   include Layout
 
   before_action :find_optional_project, only: [:index, :show]
   before_action :find_trees, only: [:index, :show]
+  before_action :authorize
 
   def index
   end
