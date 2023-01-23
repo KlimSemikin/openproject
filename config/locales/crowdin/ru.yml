@@ -2310,6 +2310,7 @@ ru:
   permission_manage_types: "Выберите типы"
   permission_view_changesets: "Просмотр изменений репозитория в OpenProject"
   permission_view_commit_author_statistics: "Посмотреть статистику автора, внесшего свою часть работы"
+  permission_view_trees: "Просмотреть справочники"
   permission_view_work_package_watchers: "Посмотреть список наблюдателей"
   permission_view_work_packages: "Просмотр пакетов работ"
   permission_view_messages: "Просмотр сообщений"
