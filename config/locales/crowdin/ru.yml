@@ -1057,6 +1057,7 @@ ru:
   button_add_menu_entry: "Добавление пункта меню"
   button_configure_menu_entry: "Настройка пункта меню"
   button_delete_menu_entry: "Удаление пункта меню"
+  button_add_tree: "Справочник"
   consent:
     checkbox_label: Принимаю к сведению и соглашаюсь с вышеизложенным.
     failure_message: Согласие не получено, продолжение невозможно.

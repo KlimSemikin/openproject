@@ -4,6 +4,89 @@
 
 <% end %>
 
-<% @trees.each do |cf| %>
-  <div><%= cf.name %></div>
-<% end %>
+<div class="generic-table--flex-container">
+  <div class="generic-table--container">
+    <div class="generic-table--results-container">
+      <table class="generic-table">
+        <colgroup>
+          <col opHighlightCol>
+          <col opHighlightCol>
+          <col opHighlightCol>
+          <col opHighlightCol>
+          <col opHighlightCol>
+        </colgroup>
+        <thead>
+        <tr>
+          <th>
+            <div class="generic-table--sort-header-outer generic-table--sort-header-outer_no-highlighting">
+              <div class="generic-table--sort-header">
+                <%= CustomField.human_attribute_name(:name) %>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="generic-table--sort-header-outer generic-table--sort-header-outer_no-highlighting">
+              <div class="generic-table--sort-header">
+                <%= CustomField.human_attribute_name(:is_required) %>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="generic-table--sort-header-outer generic-table--sort-header-outer_no-highlighting">
+              <div class="generic-table--sort-header">
+                <%= CustomField.human_attribute_name(:is_for_all) %>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="generic-table--sort-header-outer generic-table--sort-header-outer_no-highlighting">
+              <div class="generic-table--sort-header">
+                <%= CustomField.human_attribute_name(:is_filter) %>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="generic-table--sort-header-outer generic-table--sort-header-outer_no-highlighting">
+              <div class="generic-table--sort-header">
+                <%= CustomField.human_attribute_name(:searchable) %>
+              </div>
+            </div>
+          </th>
+        </tr>
+        </thead>
+          <tbody>
+           <% @trees.each do |tree| %>
+            <tr class="basics context-menu--reveal  project">
+              <td class="name">
+                <%= link_to(tree.name, project_tree_path(params[:project_id], tree.id)) %>
+              </td>
+              <td class="public">
+                <% if tree.is_required? %>
+                  <i class="icon-context icon-checkmark" aria-hidden="true"></i><span class="hidden-for-sighted">проверено</span>
+                <% end %>
+              </td>
+              <td class="public">
+                <% if tree.is_for_all? %>
+                  <i class="icon-context icon-checkmark" aria-hidden="true"></i><span class="hidden-for-sighted">проверено</span>
+                <% end %>
+              </td>
+              <td class="public">
+                <% if tree.is_filter? %>
+                  <i class="icon-context icon-checkmark" aria-hidden="true"></i><span class="hidden-for-sighted">проверено</span>
+                <% end %>
+              </td>
+              <td class="public">
+                <% if tree.searchable? %>
+                  <i class="icon-context icon-checkmark" aria-hidden="true"></i><span class="hidden-for-sighted">проверено</span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <%# if paginated? %>
+    <%#= pagination_links_full model %>
+  <%# end %>
+</div>

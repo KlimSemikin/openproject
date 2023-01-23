@@ -1128,6 +1128,7 @@ en:
   button_add_menu_entry: "Add menu item"
   button_configure_menu_entry: "Configure menu item"
   button_delete_menu_entry: "Delete menu item"
+  button_add_tree: "Add directory"
 
   consent:
     checkbox_label: I have noted and do consent to the above.
