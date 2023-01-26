@@ -14,6 +14,12 @@ class CustomNestedOption < ApplicationRecord
   # makes virtual modal CustomNestedOptionHierarchy available
   has_closure_tree name_column: :value, dependent: :destroy, order: 'position'
 
+  def visible?(user = User.current)
+    Project.allowed_to(user, :view_trees)
+    .joins(:work_package_custom_fields)
+    .exists?(custom_fields: { id: custom_field_id })
+  end
+
   protected
 
   def assure_at_least_one_option

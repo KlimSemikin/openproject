@@ -1,0 +1,38 @@
+require 'api/v3/trees/tree_collection_representer'
+require 'api/v3/trees/tree_representer'
+
+module API
+  module V3
+    module Trees
+      class TreesAPI < ::API::OpenProjectAPI
+        resources :trees do
+          helpers do
+            def trees
+              @trees ||= WorkPackageCustomField.where(field_format: 'tree')
+            end
+
+            def self_link
+              api_v3_paths.trees
+            end
+          end
+
+          get do
+            ::API::V3::Trees::TreeCollectionRepresenter.new(trees, self_link:, current_user:)
+          end
+
+          route_param :id, type: Integer, desc: 'Tree ID' do
+            after_validation do
+              @tree = trees.find(params[:id])
+            end
+
+            get do
+              ::API::V3::Trees::TreeRepresenter.new(@tree, current_user:, embed_links: true)
+            end
+
+            mount API::V3::CustomNestedOptions::CustomNestedOptionsByTreeAPI
+          end
+        end
+      end
+    end
+  end
+end

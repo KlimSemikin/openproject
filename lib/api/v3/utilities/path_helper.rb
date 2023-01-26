@@ -486,6 +486,15 @@ module API
             "#{root}/wiki_pages/#{id}"
           end
 
+          index :tree
+          show :tree
+
+          show :custom_nested_option
+
+          def self.custom_nested_options_by_tree(tree_id)
+            "#{tree(tree_id)}/custom_nested_options"
+          end
+
           resources :work_package, except: :schema
 
           def self.work_package_schema(project_id, type_id)
