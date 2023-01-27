@@ -6,6 +6,7 @@ module API
       class CustomNestedOptionsByTreeAPI < ::API::OpenProjectAPI
         resources :custom_nested_options do
           get do
+            authorize_tree_visibility(current_user, @tree)
             custom_nested_options = @tree.custom_nested_options
             CustomNestedOptionCollectionRepresenter.new(custom_nested_options,
                                                         self_link: api_v3_paths.custom_nested_options_by_tree(@tree.id),
