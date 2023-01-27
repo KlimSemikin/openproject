@@ -439,8 +439,6 @@ paths:
     "$ref": "./paths/work_package_available_watchers.yml"
   "/api/v3/work_packages/{id}/file_links":
     "$ref": "./paths/work_package_file_links.yml"
-  "/api/v3/work_packages/{id}/update_file_links":
-    "$ref": "./paths/work_package_update_file_links.yml"
   "/api/v3/work_packages/{id}/form":
     "$ref": "./paths/work_package_form.yml"
   "/api/v3/work_packages/{id}/revisions":
@@ -650,6 +648,8 @@ components:
       "$ref": "./components/schemas/membership_update_form.yml"
     NewsModel:
       "$ref": "./components/schemas/news_model.yml"
+    NonWorkingDayCollectionModel:
+      "$ref": "./components/schemas/non_working_day_collection_model.yml"
     NonWorkingDayModel:
       "$ref": "./components/schemas/non_working_day_model.yml"
     NotificationCollectionModel:
