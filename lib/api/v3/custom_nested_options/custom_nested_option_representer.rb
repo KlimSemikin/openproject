@@ -93,7 +93,7 @@ module API
         end
 
         def visible_ancestors
-          @visible_ancestors ||= represented.ancestors
+          @visible_ancestors ||= represented.eager_ancestors
         end
       end
     end

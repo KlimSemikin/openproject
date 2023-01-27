@@ -13,6 +13,8 @@ class CustomNestedOption < ApplicationRecord
 
   # makes virtual modal CustomNestedOptionHierarchy available
   has_closure_tree name_column: :value, dependent: :destroy, order: 'position'
+  has_many :eager_ancestors, -> { where.not("custom_nested_options.id = descendant_id") }, through: :ancestor_hierarchies, source: :ancestor
+  has_many :self_and_descendants, through: :descendant_hierarchies, source: :descendant
 
   def visible?(user = User.current)
     Project.allowed_to(user, :view_trees)
