@@ -22,6 +22,8 @@ module API
 
         property :position
 
+        property :default_value, render_nil: true
+
         date_time_property :created_at
 
         date_time_property :updated_at
