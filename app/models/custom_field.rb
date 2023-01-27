@@ -41,6 +41,7 @@ class CustomField < ApplicationRecord
            inverse_of: 'custom_field'
   accepts_nested_attributes_for :custom_options
 
+  # Relation for trees(directory functional)
   has_many :custom_nested_options,
            dependent: :delete_all,
            inverse_of: 'custom_field'
@@ -77,6 +78,9 @@ class CustomField < ApplicationRecord
 
   before_validation :check_searchability
   after_destroy :destroy_help_text
+  
+  # Prevent save model without any node(custom_nested_option)
+  before_save :off_required, if: -> { tree? && custom_nested_options.empty? }
 
   # make sure int, float, date, and bool are not searchable
   def check_searchability
@@ -345,5 +349,9 @@ class CustomField < ApplicationRecord
     AttributeHelpText
       .where(attribute_name: "custom_field_#{id}")
       .destroy_all
+  end
+
+  def off_required
+    self.is_required = false
   end
 end
