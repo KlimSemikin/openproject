@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2022 the OpenProject GmbH
+# Copyright (C) 2012-2023 the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -484,6 +484,15 @@ module API
 
           def self.wiki_page(id)
             "#{root}/wiki_pages/#{id}"
+          end
+
+          index :tree
+          show :tree
+
+          show :custom_nested_option
+
+          def self.custom_nested_options_by_tree(tree_id)
+            "#{tree(tree_id)}/custom_nested_options"
           end
 
           resources :work_package, except: :schema

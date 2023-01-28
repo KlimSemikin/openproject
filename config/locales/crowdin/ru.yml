@@ -1,6 +1,6 @@
 #-- copyright
 #OpenProject is an open source project management software.
-#Copyright (C) 2012-2022 the OpenProject GmbH
+#Copyright (C) 2012-2023 the OpenProject GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
 #OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
@@ -336,6 +336,7 @@ ru:
   wiki:
     page_not_editable_index: Запрошенная страница (пока) не существует. Вы были перенаправлены на индекс всех вики-страниц.
     no_results_title_text: На данный момент wiki-страницы отсутствуют.
+    print_hint: Это позволит печатать содержимое этой страницы вики без каких-либо навигационных баров.
     index:
       no_results_content_text: Добавить новую wiki-страницу
   work_flows:
@@ -376,7 +377,7 @@ ru:
   account:
     delete: "Удалить учётную запись"
     delete_confirmation: "Вы уверены, что хотите удалить учетную запись?"
-    deleted: "Учетная запись успешно удалена"
+    deletion_pending: "Учетная запись была заблокирована и была запланирована к удалению. Заметьте, что этот процесс происходит в фоновом режиме. Это может занять несколько минут, пока пользователь не будет полностью удален."
     deletion_info:
       data_consequences:
         other: "Данные, созданные пользователем (адрес электронной почты, предпочтения, пакеты работ, wiki-записи) полностью не удаляются. Рабочие пакеты, wiki-записи и пр. могут влиять на работы других пользователей, поэтому такие данные не удаляются, а закрепляются за другой, специальной учетной записью, именуемой «Удаленный пользователь». После такого переназначения определить кому принадлежали эти данные ранее становиться невозможно."
@@ -691,6 +692,11 @@ ru:
               no_notification_reason: 'не может быть пустым, так как IAN выбран как канал.'
             reason_mail_digest:
               no_notification_reason: 'не может быть пустым, так как почтовый дайджест выбран как канал.'
+        non_working_day:
+          attributes:
+            date:
+              taken: "Для %{value} уже существует нерабочий день."
+              format: "%{message}"
         parse_schema_filter_params_service:
           attributes:
             base:
@@ -701,6 +707,8 @@ ru:
           archived_ancestor: 'В проекте есть архивированный предок.'
           foreign_wps_reference_version: 'Комплексы работ в проектах, не расположенных по убыванию, ссылаются на версии проекта или его производных.'
           attributes:
+            base:
+              archive_permission_missing_on_subprojects: "У вас нет разрешений, необходимых для архивирования всех подпроектов. Обратитесь к администратору."
             types:
               in_use_by_work_packages: "всё ещё используются в пакетах работ: %{types}"
             enabled_modules:
@@ -908,7 +916,7 @@ ru:
   attributes:
     active: "Активно"
     assigned_to: "Назначенный"
-    assignee: "Исполнитель"
+    assignee: "Назначенный"
     attachments: "Вложения"
     author: "Автор"
     base: "Общая ошибка:"
@@ -1582,7 +1590,7 @@ ru:
   label_copy_target: "Цель"
   label_copy_workflow_from: "Копировать рабочий поток из"
   label_copy_project: "Копировать проект"
-  label_core_version: "Основной этап"
+  label_core_version: "Текущая версия"
   label_current_status: "Текущий статус"
   label_current_version: "Текущий этап"
   label_custom_field_add_no_type: "Добавьте это поле в тип комплекса работ"
@@ -1824,6 +1832,7 @@ ru:
   label_product_version: "Версия продукта"
   label_professional_support: "Профессиональная поддержка"
   label_profile: "Профиль"
+  label_project_activity: "Активность проекта"
   label_project_attribute_plural: "Атрибуты проекта"
   label_project_count: "Общее количество проектов"
   label_project_copy_notifications: "Уведомлять по электронной почте по ходу копирования проекта"
@@ -2077,7 +2086,7 @@ ru:
       reason:
         watched: 'Просмотрено'
         assigned: 'Назначено'
-        responsible: 'Проверяющий'
+        responsible: 'Подотчетный'
         mentioned: 'Упомянутые'
         subscribed: 'все'
         prefix: 'Получено из-за настройки уведомления: %{reason}'
@@ -2118,8 +2127,6 @@ ru:
   mail_subject_incoming_email_error: "Письмо отправлено на OpenProject не может быть обработано"
   mail_subject_lost_password: "Ваш пароль %{value}"
   mail_subject_register: "Активация вашей учетной записи %{value}"
-  mail_subject_reminder: "%{count}  пакет(-ов) работ на  следующие %{days}"
-  mail_subject_group_reminder: "В группе \"%{group}\" есть комплексы работ (%{count}), срок выполнения которых истекает в следующие %{days} дн."
   mail_subject_wiki_content_added: "'%{id}' wiki-страница добавлена"
   mail_subject_wiki_content_updated: "'%{id}' wiki страница была обновлена"
   mail_member_added_project:
@@ -2254,6 +2261,7 @@ ru:
   permission_add_work_packages: "Добавление пакетов работ"
   permission_add_messages: "Написать сообщения"
   permission_add_project: "Создать проект"
+  permission_archive_project: "Архивировать проект"
   permission_manage_user: "Создание и редактирование пользователей"
   permission_manage_placeholder_user: "Создавать, редактировать и удалять пользователей-заполнителей"
   permission_add_subprojects: "Создать подпроект"
@@ -2802,7 +2810,7 @@ ru:
         date: "дата"
         default: "по умолчанию"
       column:
-        assigned_to: "Исполнитель"
+        assigned_to: "Назначенный"
         type: "Тип"
         due_date: "Дате окончания"
         name: "Имя"
@@ -2951,7 +2959,7 @@ ru:
     unlock_and_reset_failed_logins: "Разблокировать и сбросить неудачные попытки входа"
   version_status_closed: "закрыт"
   version_status_locked: "заблокировано"
-  version_status_open: "открыто"
+  version_status_open: "открыт"
   note: Заметка
   note_password_login_disabled: "Вход по паролю был отключен через параметры %{configuration}."
   warning: Предупреждение
@@ -3000,6 +3008,9 @@ ru:
       days:
         working: "%{day} сейчас работает"
         non_working: "%{day} теперь не работает"
+      dates:
+        working: "%{date} is now working"
+        non_working: "%{date} is now non-working"
   nothing_to_preview: "Нет ничего для предосмотра"
   api_v3:
     attributes:

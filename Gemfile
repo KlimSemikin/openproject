@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2022 the OpenProject GmbH
+# Copyright (C) 2012-2023 the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -28,7 +28,7 @@
 
 source 'https://rubygems.org'
 
-ruby '~> 3.1.2'
+ruby '~> 3.2.0'
 
 gem 'actionpack-xml_parser', '~> 2.0.0'
 gem 'activemodel-serializers-xml', '~> 1.0.1'
@@ -39,9 +39,7 @@ gem 'responders', '~> 3.0'
 
 gem 'ffi', '~> 1.15'
 
-# Lock mail at 2.7 due to incompatibility
-# TODO: Remove it once the new version is fixed
-gem 'mail', '~> 2.7.1'
+gem 'mail', '~> 2.8.0'
 
 gem 'rdoc', '>= 2.4.2'
 
@@ -82,7 +80,7 @@ gem 'htmldiff'
 gem 'stringex', '~> 2.8.5'
 
 # CommonMark markdown parser with GFM extension
-gem 'commonmarker', '~> 0.23.6'
+gem 'commonmarker', '~> 0.23.7'
 
 # HTML pipeline for transformations on text formatter output
 # such as sanitization or additional features
@@ -177,11 +175,11 @@ gem 'rails-i18n', '~> 7.0.0'
 gem 'sprockets', '~> 3.7.2' # lock sprockets below 4.0
 gem 'sprockets-rails', '~> 3.4.2'
 
-gem 'puma', '~> 5.6'
+gem 'puma', '~> 6.0'
 gem 'puma-plugin-statsd', '~> 2.0'
 gem 'rack-timeout', '~> 0.6.3', require: "rack/timeout/base"
 
-gem 'nokogiri', '~> 1.13.10'
+gem 'nokogiri', '~> 1.14.0'
 
 gem 'carrierwave', '~> 1.3.1'
 gem 'carrierwave_direct', '~> 2.1.0'
@@ -203,11 +201,6 @@ gem 'mini_magick', '~> 4.12.0', require: false
 
 gem 'validate_url'
 
-# Sentry error reporting
-gem "sentry-delayed_job", '~> 5.7.0'
-gem "sentry-rails", '~> 5.7.0'
-gem "sentry-ruby", '~> 5.7.0'
-
 # Appsignal integration
 gem "appsignal", "~> 3.0", require: false
 
@@ -218,7 +211,7 @@ group :test do
 
   # Test prof provides factories from code
   # and other niceties
-  gem 'test-prof', '~> 1.0.0'
+  gem 'test-prof', '~> 1.1.0'
 
   gem 'rack_session_access'
   gem 'rspec', '~> 3.12.0'
@@ -262,9 +255,8 @@ group :ldap do
 end
 
 group :development do
-  gem 'listen', '~> 3.7.0' # Use for event-based reloaders
+  gem 'listen', '~> 3.8.0' # Use for event-based reloaders
 
-  gem 'faker', require: false
   gem 'letter_opener'
 
   gem 'spring'
@@ -311,9 +303,9 @@ end
 gem 'bootsnap', '~> 1.15.0', require: false
 
 # API gems
-gem 'grape', '~> 1.6.0'
+gem 'grape', '~> 1.7.0'
 gem 'grape_logging', '~> 1.8.4'
-gem 'roar', '~> 1.1.0'
+gem 'roar', '~> 1.2.0'
 
 # CORS for API
 gem 'rack-cors', '~> 1.1.1'
