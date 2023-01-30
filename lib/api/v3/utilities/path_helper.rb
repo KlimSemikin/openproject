@@ -489,7 +489,7 @@ module API
           index :tree
           show :tree
 
-          show :custom_nested_option
+          resources :custom_nested_option
 
           def self.custom_nested_options_by_tree(tree_id)
             "#{tree(tree_id)}/custom_nested_options"
