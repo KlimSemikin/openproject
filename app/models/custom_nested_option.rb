@@ -2,6 +2,7 @@ class CustomNestedOption < ApplicationRecord
   belongs_to :custom_field, touch: true
 
   validates :value, presence: true, length: { maximum: 255 }
+  validates :custom_field, presence: true
 
   before_destroy :assure_at_least_one_option
 
@@ -13,8 +14,18 @@ class CustomNestedOption < ApplicationRecord
 
   # makes virtual modal CustomNestedOptionHierarchy available
   has_closure_tree name_column: :value, dependent: :destroy, order: 'position'
+
+  # Add methods for eager loading hierarchy
   has_many :eager_ancestors, -> { where.not("custom_nested_options.id = descendant_id") }, through: :ancestor_hierarchies, source: :ancestor
   has_many :self_and_descendants, through: :descendant_hierarchies, source: :descendant
+
+  def tree_id
+    custom_field_id
+  end
+
+  def tree
+    custom_field
+  end
 
   def visible?(user = User.current)
     Project.allowed_to(user, :view_trees)
