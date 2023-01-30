@@ -18,8 +18,6 @@ module API
 
         property :description, render_nil: true
 
-        property :custom_field_id
-
         property :position
 
         property :default_value, render_nil: true
@@ -27,6 +25,16 @@ module API
         date_time_property :created_at
 
         date_time_property :updated_at
+
+        link :addChild, uncacheable: true do
+          next if represented.new_record?
+
+          {
+            href: api_v3_paths.custom_nested_options,
+            method: :post,
+            title: "Add child of #{represented.value}"
+          }
+        end
 
         links :children, uncacheable: true do
           next if visible_children.empty?
@@ -49,6 +57,26 @@ module API
             }
           end
         end
+
+        associated_resource :tree, uncacheable_link: true,
+                            setter: ->(fragment:, **) do
+                              next if fragment.empty?
+
+                              href = fragment['href']
+
+                              new_custom_field =
+                                if href
+                                  id = ::API::Utilities::ResourceLinkParser
+                                         .parse_id href,
+                                                   property: 'custom_field',
+                                                   expected_version: '3',
+                                                   expected_namespace: 'trees'
+
+                                  WorkPackageCustomField.find_by(id:)
+                                end
+
+                              represented.custom_field = new_custom_field
+                            end
 
         associated_resource :parent,
                             v3_path: :custom_nested_option,

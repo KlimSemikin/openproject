@@ -22,6 +22,10 @@ module API
               ::API::V3::CustomNestedOptions::CustomNestedOptionRepresenter.new(@custom_nested_option, current_user:, embed_links: true)
             end
           end
+
+          post &::API::V3::Utilities::Endpoints::Create.new(
+            model: CustomNestedOption,
+            parse_service: CustomNestedOptions::ParseParamsService).mount
         end
       end
     end
