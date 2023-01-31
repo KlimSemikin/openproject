@@ -3,8 +3,10 @@ class CustomNestedOption < ApplicationRecord
 
   validates :value, presence: true, length: { maximum: 255 }
   validates :custom_field, presence: true
+  validate :custom_field_id_not_changed
+  validate :new_parent_exists_in_tree
 
-  before_destroy :assure_at_least_one_option
+  # before_destroy :assure_at_least_one_option
 
   def to_s
     value
@@ -13,7 +15,8 @@ class CustomNestedOption < ApplicationRecord
   alias :name :to_s
 
   # makes virtual modal CustomNestedOptionHierarchy available
-  has_closure_tree name_column: :value, dependent: :destroy, order: 'position'
+  has_closure_tree name_column: :value, dependent: :destroy, order: 'position', numeric_order: true, dont_order_roots: true
+  # acts_as_list scope: 'custom_field_id = \'#{custom_field_id}\'', top_of_list: 0
 
   # Add methods for eager loading hierarchy
   has_many :eager_ancestors, -> { where.not("custom_nested_options.id = descendant_id") }, through: :ancestor_hierarchies, source: :ancestor
@@ -38,6 +41,23 @@ class CustomNestedOption < ApplicationRecord
   end
 
   protected
+
+  # Checks parent presenting in current tree(custom_field)
+  def new_parent_exists_in_tree
+    return unless parent_id.present?
+
+    unless WorkPackageCustomField
+           .find_by(id: custom_field_id)&.custom_nested_options&.find_by(id: parent_id)
+      errors.add(:parent_id, "has no found in this tree!")
+    end
+  end
+
+  # Prevent custom field editing
+  def custom_field_id_not_changed
+    if custom_field_id_changed? && self.persisted?
+      errors.add(:custom_field_id, "Change of custom_field_id not allowed!")
+    end
+  end
 
   def assure_at_least_one_option
     return if CustomNestedOption.where(custom_field_id:).where.not(id:).count > 0
