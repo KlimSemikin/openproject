@@ -16,6 +16,8 @@ module API
             end
 
             def authorize_tree_visibility(current_user, tree)
+              return true if current_user.admin?
+
               raise API::Errors::NotFound unless Project.allowed_to(current_user, :view_trees)
                 .joins(:work_package_custom_fields)
                 .exists?(custom_fields: { id: tree.id })

@@ -1,5 +1,3 @@
-require 'model_contract'
-
 module CustomNestedOptions
   class BaseContract < ::ModelContract
     attribute :value
@@ -21,6 +19,8 @@ module CustomNestedOptions
     end
 
     def custom_field_visible?
+      return true if user.admin?
+
       Project.allowed_to(user, :view_trees)
       .joins(:work_package_custom_fields)
       .exists?(custom_fields: { id: custom_field_id })

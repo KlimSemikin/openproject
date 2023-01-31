@@ -27,7 +27,10 @@ class CustomNestedOption < ApplicationRecord
     custom_field
   end
 
+  # true only if current custom_field contains in this project and user have rights to view_trees
   def visible?(user = User.current)
+    return true if user.admin?
+
     Project.allowed_to(user, :view_trees)
     .joins(:work_package_custom_fields)
     .exists?(custom_fields: { id: custom_field_id })
