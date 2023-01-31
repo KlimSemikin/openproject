@@ -18,7 +18,7 @@ module API
 
         property :description, render_nil: true
 
-        property :position
+        property :position, render_nil: true
 
         property :default_value, render_nil: true
 
@@ -33,6 +33,16 @@ module API
             href: api_v3_paths.custom_nested_options,
             method: :post,
             title: "Add child of #{represented.value}"
+          }
+        end
+
+        link :changeParent, uncacheable: true do
+          next if represented.new_record?
+
+          {
+            href: api_v3_paths.custom_nested_option(represented.id),
+            method: :patch,
+            title: "Change parent of #{represented.value}"
           }
         end
 

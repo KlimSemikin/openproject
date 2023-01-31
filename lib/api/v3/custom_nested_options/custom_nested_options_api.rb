@@ -19,8 +19,13 @@ module API
 
             get do
               authorize_custom_option_visibility(@custom_nested_option)
-              ::API::V3::CustomNestedOptions::CustomNestedOptionRepresenter.new(@custom_nested_option, current_user:, embed_links: true)
+              ::API::V3::CustomNestedOptions::CustomNestedOptionRepresenter.new(
+                @custom_nested_option, current_user:, embed_links: true)
             end
+
+            patch &::API::V3::CustomNestedOptions::UpdateEndPoint.new(
+              model: CustomNestedOption,
+              parse_service: CustomNestedOptions::ParseParamsService).mount
           end
 
           post &::API::V3::Utilities::Endpoints::Create.new(
