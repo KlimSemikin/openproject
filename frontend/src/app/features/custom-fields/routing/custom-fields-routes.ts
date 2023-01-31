@@ -8,7 +8,7 @@ export const CUSTOM_FIELDS_ROUTES:Ng2StateDeclaration[] = [
     url: '/trees/:id',
 
     views: {
-      '!$default': { component: HierarchicalListComponent },
+      // '!$default': { component: HierarchicalListComponent },
     },
     data: {
     },
