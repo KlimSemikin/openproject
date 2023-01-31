@@ -486,15 +486,6 @@ module API
             "#{root}/wiki_pages/#{id}"
           end
 
-          index :tree
-          show :tree
-
-          resources :custom_nested_option
-
-          def self.custom_nested_options_by_tree(tree_id)
-            "#{tree(tree_id)}/custom_nested_options"
-          end
-
           resources :work_package, except: :schema
 
           def self.work_package_schema(project_id, type_id)
@@ -547,6 +538,16 @@ module API
 
           def self.work_packages_by_project(project_id)
             "#{project(project_id)}/work_packages"
+          end
+
+          # Routes for trees and custom nested_options(nodes)
+          index :tree
+          show :tree
+
+          resources :custom_nested_option
+
+          def self.custom_nested_options_by_tree(tree_id)
+            "#{tree(tree_id)}/custom_nested_options"
           end
 
           def self.path_for(path, filters: nil, sort_by: nil, group_by: nil, page_size: nil, offset: nil, select: nil)

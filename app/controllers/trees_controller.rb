@@ -22,9 +22,9 @@ class TreesController < ApplicationController
 
   def find_trees
     @trees = if @project.present?
-               @project.work_package_custom_fields.where(field_format: "tree")
+               @project.work_package_custom_fields.trees
              else
-               WorkPackageCustomField.where(field_format: "tree")
+               WorkPackageCustomField.trees
              end
   end
 end

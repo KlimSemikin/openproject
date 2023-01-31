@@ -1,6 +1,7 @@
 require 'api/v3/trees/tree_collection_representer'
 require 'api/v3/trees/tree_representer'
 
+# Api for trees (WorkPackageCustomField with field_format = tree). Related with CustomNestedOptionsAPI
 module API
   module V3
     module Trees
@@ -8,7 +9,7 @@ module API
         resources :trees do
           helpers do
             def trees
-              @trees ||= WorkPackageCustomField.where(field_format: 'tree')
+              @trees ||= WorkPackageCustomField.trees
             end
 
             def self_link

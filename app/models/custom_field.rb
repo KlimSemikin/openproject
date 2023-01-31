@@ -29,6 +29,9 @@
 class CustomField < ApplicationRecord
   include CustomField::OrderStatements
   scope :required, -> { where(is_required: true) }
+
+  # Scope for tree format(custom_nested_options)
+  scope :trees, -> { where(field_format: "tree") }
   has_many :custom_values, dependent: :delete_all
   # WARNING: the inverse_of option is also required in order
   # for the 'touch: true' option on the custom_field association in CustomOption
@@ -78,7 +81,7 @@ class CustomField < ApplicationRecord
 
   before_validation :check_searchability
   after_destroy :destroy_help_text
-  
+
   # Prevent save model without any node(custom_nested_option)
   before_save :off_required, if: -> { tree? && custom_nested_options.empty? }
 
