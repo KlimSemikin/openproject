@@ -15,8 +15,8 @@ class CustomNestedOption < ApplicationRecord
   alias :name :to_s
 
   # makes virtual modal CustomNestedOptionHierarchy available
-  has_closure_tree name_column: :value, dependent: :destroy, order: 'position', numeric_order: true, dont_order_roots: true
-  # acts_as_list scope: 'custom_field_id = \'#{custom_field_id}\'', top_of_list: 0
+  has_closure_tree name_column: :value, dependent: :destroy, order: 'position'
+  acts_as_list scope: [:parent_id, :custom_field_id], top_of_list: 0
 
   # Add methods for eager loading hierarchy
   has_many :eager_ancestors, -> { where.not("custom_nested_options.id = descendant_id") }, through: :ancestor_hierarchies, source: :ancestor
