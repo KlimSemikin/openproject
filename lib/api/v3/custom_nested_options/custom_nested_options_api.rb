@@ -15,10 +15,10 @@ module API
           route_param :id, type: Integer, desc: 'CustomNestedOption ID' do
             after_validation do
               @custom_nested_option = CustomNestedOption.find(params[:id])
+              authorize_custom_option_visibility(@custom_nested_option)
             end
 
             get do
-              authorize_custom_option_visibility(@custom_nested_option)
               ::API::V3::CustomNestedOptions::CustomNestedOptionRepresenter.new(
                 @custom_nested_option, current_user:, embed_links: true)
             end
