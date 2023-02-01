@@ -6,8 +6,6 @@ class CustomNestedOption < ApplicationRecord
   validate :custom_field_id_not_changed
   validate :new_parent_exists_in_tree
 
-  # before_destroy :assure_at_least_one_option
-
   def to_s
     value
   end
@@ -16,6 +14,8 @@ class CustomNestedOption < ApplicationRecord
 
   # makes virtual modal CustomNestedOptionHierarchy available
   has_closure_tree name_column: :value, dependent: :destroy, order: 'position'
+
+  # makes sorting by position available
   acts_as_list scope: [:parent_id, :custom_field_id], top_of_list: 0
 
   # Add methods for eager loading hierarchy
@@ -57,13 +57,5 @@ class CustomNestedOption < ApplicationRecord
     if custom_field_id_changed? && self.persisted?
       errors.add(:custom_field_id, "Change of custom_field_id not allowed!")
     end
-  end
-
-  def assure_at_least_one_option
-    return if CustomNestedOption.where(custom_field_id:).where.not(id:).count > 0
-
-    errors.add(:base, I18n.t(:'activerecord.errors.models.custom_field.at_least_one_custom_option'))
-
-    throw :abort
   end
 end
