@@ -11,7 +11,7 @@ include:
       - gitlab_ci/.gitlab-ci-clone.yml
       - gitlab_ci/.gitlab-ci-tests.yml
       - gitlab_ci/.gitlab-ci-deploy.yml
-    ref: master
+    ref: $XML_IMPORT_CI_TARGET_BRANCH
 
 .db:
   image: ruby:3.2.0
