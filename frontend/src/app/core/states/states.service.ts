@@ -12,6 +12,7 @@ import { RoleResource } from 'core-app/features/hal/resources/role-resource';
 import { ProjectResource } from 'core-app/features/hal/resources/project-resource';
 import { PostResource } from 'core-app/features/hal/resources/post-resource';
 import { SchemaResource } from 'core-app/features/hal/resources/schema-resource';
+import { NestedOptionResource } from 'core-app/features/hal/resources/nested-option-resource';
 
 export class States extends StatesGroup {
   name = 'MainStore';
@@ -48,6 +49,9 @@ export class States extends StatesGroup {
 
   /* /api/v3/roles */
   roles = multiInput<RoleResource>();
+
+  /* /api/v3/custom_nested_options */
+  custom_nested_options = multiInput<NestedOptionResource>();
 
   // Global events to isolated changes
   changes = {
