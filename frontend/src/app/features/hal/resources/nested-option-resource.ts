@@ -122,7 +122,5 @@ export class NestedOptionBaseResource extends HalResource {
   // }
 }
 
-export const NestedOptionResource = Attachable(NestedOptionBaseResource);
-
 export interface NestedOptionResource extends NestedOptionBaseResource, NestedOptionResourceLinks, NestedOptionResourceEmbedded {
 }
