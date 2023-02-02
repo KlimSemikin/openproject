@@ -15,8 +15,8 @@ export class ApiV3NestedOptionsPaths extends ApiV3Collection<NestedOptionResourc
   }
 
   /**
-   * Create a work package from a form payload
-   *
+   * Create a custom nested option from a form payload          этот метод для создания нового элемента,
+   *                                                            надо найти update для изменения родителя
    * @param payload
    * @return {Promise<WorkPackageResource>}
    */
