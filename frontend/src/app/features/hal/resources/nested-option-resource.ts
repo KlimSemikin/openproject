@@ -34,6 +34,8 @@ export class NestedOptionBaseResource extends HalResource {
 
   public position:any;
 
+  public defaultValue:any;
+
   @InjectField() I18n!:I18nService;
 
   @InjectField() states:States;
