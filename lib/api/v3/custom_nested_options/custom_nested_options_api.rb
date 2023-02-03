@@ -26,6 +26,8 @@ module API
             patch &::API::V3::CustomNestedOptions::UpdateEndPoint.new(
               model: CustomNestedOption,
               parse_service: CustomNestedOptions::ParseParamsService).mount
+
+            delete &::API::V3::Utilities::Endpoints::Delete.new(model: CustomNestedOption).mount
           end
 
           post &::API::V3::Utilities::Endpoints::Create.new(
