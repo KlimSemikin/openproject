@@ -35,7 +35,7 @@ export class ApiV3NestedOptionsPaths extends ApiV3Collection<NestedOptionResourc
    *                                                            надо найти update для изменения родителя
    *
    * @param payload
-   * @return {Promise<WorkPackageResource>}
+   * @return {Promise<NestedOptionResource>}
    */
   public post(payload:Object):Observable<NestedOptionResource> {
     return this
