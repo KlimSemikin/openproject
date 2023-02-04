@@ -1,7 +1,7 @@
 module API
   module V3
-    module CustomNestedOptions
-      class CustomNestedOptionRepresenter < ::API::Decorators::Single
+    module CatalogItems
+      class CatalogItemRepresenter < ::API::Decorators::Single
         include API::Decorators::LinkedResource
         include API::Decorators::DateProperty
         include API::Caching::CachedRepresenter
@@ -9,7 +9,7 @@ module API
         self_link
 
         def _type
-          'CustomNestedOption'
+          'CatalogItem'
         end
 
         property :id, render_nil: true
@@ -30,7 +30,7 @@ module API
           next if represented.new_record?
 
           {
-            href: api_v3_paths.custom_nested_options,
+            href: api_v3_paths.catalog_items,
             method: :post,
             title: "Add child of #{represented.value}"
           }
@@ -40,7 +40,7 @@ module API
           next if represented.new_record?
 
           {
-            href: api_v3_paths.custom_nested_option(represented.id),
+            href: api_v3_paths.catalog_item(represented.id),
             method: :patch,
             title: "Change parent of #{represented.value}"
           }
@@ -51,7 +51,7 @@ module API
 
           visible_children.map do |child|
             {
-              href: api_v3_paths.custom_nested_option(child.id),
+              href: api_v3_paths.catalog_item(child.id),
               title: child.value
             }
           end
@@ -62,7 +62,7 @@ module API
 
           visible_ancestors.map do |ancestor|
             {
-              href: api_v3_paths.custom_nested_option(ancestor.id),
+              href: api_v3_paths.catalog_item(ancestor.id),
               title: ancestor.value
             }
           end
@@ -72,7 +72,7 @@ module API
           next if represented.new_record?
 
           {
-            href: api_v3_paths.custom_nested_options_by_tree(represented.custom_field_id),
+            href: api_v3_paths.catalog_items_by_tree(represented.custom_field_id),
             title: "Potential custom nested options to relate to"
           }
         end
@@ -98,15 +98,15 @@ module API
                             end
 
         associated_resource :parent,
-                            v3_path: :custom_nested_option,
-                            representer: ::API::V3::CustomNestedOptions::CustomNestedOptionRepresenter,
+                            v3_path: :catalog_item,
+                            representer: ::API::V3::CatalogItems::CatalogItemRepresenter,
                             skip_render: ->(*) { represented.parent },
                             link_title_attribute: :value,
                             uncacheable_link: true,
                             link: ->(*) {
                               if represented.parent
                                 {
-                                  href: api_v3_paths.custom_nested_option(represented.parent.id),
+                                  href: api_v3_paths.catalog_item(represented.parent.id),
                                   title: represented.parent.value
                                 }
                               else
@@ -127,9 +127,9 @@ module API
                                     .parse_id href,
                                               property: 'parent',
                                               expected_version: '3',
-                                              expected_namespace: 'custom_nested_options'
+                                              expected_namespace: 'catalog_items'
 
-                                  CustomNestedOption.find_by(id:)
+                                  CatalogItem.find_by(id:)
                                 end
 
                               represented.parent = new_parent

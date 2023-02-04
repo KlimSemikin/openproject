@@ -1,7 +1,7 @@
 require 'api/v3/trees/tree_collection_representer'
 require 'api/v3/trees/tree_representer'
 
-# Api for trees (WorkPackageCustomField with field_format = tree). Related with CustomNestedOptionsAPI
+# Api for trees (WorkPackageCustomField with field_format = tree). Related with CatalogItemsAPI
 module API
   module V3
     module Trees
@@ -39,7 +39,7 @@ module API
               ::API::V3::Trees::TreeRepresenter.new(@tree, current_user:, embed_links: true)
             end
 
-            mount API::V3::CustomNestedOptions::CustomNestedOptionsByTreeAPI
+            mount API::V3::CatalogItems::CatalogItemsByTreeAPI
           end
         end
       end

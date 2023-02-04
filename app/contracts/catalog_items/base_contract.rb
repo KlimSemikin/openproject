@@ -1,4 +1,4 @@
-module CustomNestedOptions
+module CatalogItems
   class BaseContract < ::ModelContract
     attribute :value
 
@@ -9,7 +9,7 @@ module CustomNestedOptions
     attribute :default_value
 
     def self.model
-      CustomNestedOption
+      CatalogItem
     end
 
     validate :validate_custom_field

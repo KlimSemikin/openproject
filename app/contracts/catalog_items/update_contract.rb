@@ -1,4 +1,4 @@
-module CustomNestedOptions
+module CatalogItems
   class UpdateContract < BaseContract
     attribute :custom_field_id do
       ensure_unchanged_tree_id

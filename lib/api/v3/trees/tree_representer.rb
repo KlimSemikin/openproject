@@ -11,8 +11,8 @@ module API
 
         property :name
 
-        link :customNestedOptions, uncacheable: true do
-          { href: api_v3_paths.custom_nested_options_by_tree(represented.id) }
+        link :CatalogItems, uncacheable: true do
+          { href: api_v3_paths.catalog_items_by_tree(represented.id) }
         end
 
         def _type

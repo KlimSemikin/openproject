@@ -1,4 +1,4 @@
-module CustomNestedOptions
+module CatalogItems
   class CopyContract < BaseContract
   end
 end

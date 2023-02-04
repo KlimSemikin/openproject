@@ -83,7 +83,7 @@ module API
       mount ::API::V3::WorkPackages::WorkPackagesAPI
       mount ::API::V3::WikiPages::WikiPagesAPI
       mount ::API::V3::Trees::TreesAPI
-      mount ::API::V3::CustomNestedOptions::CustomNestedOptionsAPI
+      mount ::API::V3::CatalogItems::CatalogItemsAPI
 
       get '/' do
         RootRepresenter.new({}, current_user:)

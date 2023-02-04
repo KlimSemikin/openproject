@@ -540,14 +540,14 @@ module API
             "#{project(project_id)}/work_packages"
           end
 
-          # Routes for trees and custom nested_options(nodes)
+          # Routes for trees and custom catalogs(nodes)
           index :tree
           show :tree
 
-          resources :custom_nested_option
+          resources :catalog_item
 
-          def self.custom_nested_options_by_tree(tree_id)
-            "#{tree(tree_id)}/custom_nested_options"
+          def self.catalog_items_by_tree(tree_id)
+            "#{tree(tree_id)}/catalog_items"
           end
 
           def self.path_for(path, filters: nil, sort_by: nil, group_by: nil, page_size: nil, offset: nil, select: nil)

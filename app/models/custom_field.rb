@@ -30,7 +30,7 @@ class CustomField < ApplicationRecord
   include CustomField::OrderStatements
   scope :required, -> { where(is_required: true) }
 
-  # Scope for tree format(custom_nested_options)
+  # Scope for tree format(catalog_items)
   scope :trees, -> { where(field_format: "tree") }
   has_many :custom_values, dependent: :delete_all
   # WARNING: the inverse_of option is also required in order
@@ -45,10 +45,10 @@ class CustomField < ApplicationRecord
   accepts_nested_attributes_for :custom_options
 
   # Relation for trees(directory functional)
-  has_many :custom_nested_options,
+  has_many :catalog_items,
            dependent: :delete_all,
            inverse_of: 'custom_field'
-  accepts_nested_attributes_for :custom_nested_options
+  accepts_nested_attributes_for :catalog_items
 
   acts_as_list scope: [:type]
 
@@ -82,8 +82,8 @@ class CustomField < ApplicationRecord
   before_validation :check_searchability
   after_destroy :destroy_help_text
 
-  # Prevent save model without any node(custom_nested_option)
-  before_save :off_required, if: -> { tree? && custom_nested_options.empty? }
+  # Prevent save model without any node(catalog_item)
+  before_save :off_required, if: -> { tree? && catalog_items.empty? }
 
   # make sure int, float, date, and bool are not searchable
   def check_searchability
@@ -173,7 +173,7 @@ class CustomField < ApplicationRecord
     when 'list'
       custom_options
     when 'tree'
-      custom_nested_options
+      catalog_items
     else
       read_attribute(:possible_values)
     end

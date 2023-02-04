@@ -1,8 +1,8 @@
 module API
   module V3
-    module CustomNestedOptions
+    module CatalogItems
       module Schemas
-        class CustomNestedOptionSchemaRepresenter < ::API::Decorators::SchemaRepresenter
+        class CatalogItemSchemaRepresenter < ::API::Decorators::SchemaRepresenter
           include API::Caching::CachedRepresenter
 
           schema :id,
@@ -24,13 +24,13 @@ module API
                  required: false
 
           schema_with_allowed_link :parent,
-                                   type: 'CustomNestedOption',
+                                   type: 'CatalogItem',
                                    required: false,
                                    writable: true,
                                    href_callback: ->(*) {
-                                     custom_nested_option = represented.custom_nested_option
-                                     if custom_nested_option&.persisted?
-                                       api_v3_paths.custom_nested_options_by_tree(represented.custom_field_id)
+                                     catalog_item = represented.catalog_item
+                                     if catalog_item&.persisted?
+                                       api_v3_paths.catalog_items_by_tree(represented.custom_field_id)
                                      end
                                    }
 
@@ -41,7 +41,7 @@ module API
                  type: 'DateTime'
 
           def self.represented_class
-            ::CustomNestedOption
+            ::CatalogItem
           end
         end
       end

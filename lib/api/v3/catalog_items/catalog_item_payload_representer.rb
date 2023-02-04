@@ -1,7 +1,7 @@
 module API
   module V3
-    module CustomNestedOptions
-      class CustomNestedOptionPayloadRepresenter < CustomNestedOptionRepresenter
+    module CatalogItems
+      class CatalogItemPayloadRepresenter < CatalogItemRepresenter
         include ::API::Utilities::PayloadRepresenter
 
         cached_representer disabled: true

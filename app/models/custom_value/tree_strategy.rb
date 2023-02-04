@@ -1,6 +1,6 @@
 class CustomValue::TreeStrategy < CustomValue::ARObjectStrategy
   def validate_type_of_value
-    unless custom_field.custom_nested_options.pluck(:id).include?(value.to_i)
+    unless custom_field.catalog_items.pluck(:id).include?(value.to_i)
       :inclusion
     end
   end
@@ -13,11 +13,11 @@ class CustomValue::TreeStrategy < CustomValue::ARObjectStrategy
   private
 
   def ar_class
-    CustomNestedOption
+    CatalogItem
   end
 
   def ar_object(value)
-    option = CustomNestedOption.find_by(id: value.to_s)
+    option = CatalogItem.find_by(id: value.to_s)
     if option.nil?
       "#{value} #{I18n.t(:label_not_found)}"
     else

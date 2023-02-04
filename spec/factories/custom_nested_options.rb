@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :custom_nested_option do
-    
+  factory :catalog_item do
+
   end
 end

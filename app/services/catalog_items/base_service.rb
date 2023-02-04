@@ -1,4 +1,4 @@
-class CustomNestedOptions::BaseService
+class CatalogItems::BaseService
   include Contracted
 
   attr_reader :user

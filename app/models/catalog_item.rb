@@ -1,4 +1,4 @@
-class CustomNestedOption < ApplicationRecord
+class CatalogItem < ApplicationRecord
   belongs_to :custom_field, touch: true
 
   validates :value, presence: true, length: { maximum: 255 }
@@ -12,14 +12,14 @@ class CustomNestedOption < ApplicationRecord
 
   alias :name :to_s
 
-  # makes virtual modal CustomNestedOptionHierarchy available
+  # makes virtual modal CatalogItemHierarchy available
   has_closure_tree name_column: :value, dependent: :destroy, order: 'position'
 
   # makes sorting by position available
   acts_as_list scope: [:parent_id, :custom_field_id], top_of_list: 0
 
   # Add methods for eager loading hierarchy
-  has_many :eager_ancestors, -> { where.not("custom_nested_options.id = descendant_id") }, through: :ancestor_hierarchies, source: :ancestor
+  has_many :eager_ancestors, -> { where.not("catalog_items.id = descendant_id") }, through: :ancestor_hierarchies, source: :ancestor
   has_many :self_and_descendants, through: :descendant_hierarchies, source: :descendant
 
   # Alias methods
@@ -47,7 +47,7 @@ class CustomNestedOption < ApplicationRecord
     return unless parent_id.present?
 
     unless WorkPackageCustomField
-           .find_by(id: custom_field_id)&.custom_nested_options&.find_by(id: parent_id)
+           .find_by(id: custom_field_id)&.catalog_items&.find_by(id: parent_id)
       errors.add(:parent_id, "has no found in this tree!")
     end
   end
