@@ -72,12 +72,12 @@ module API
           next if represented.new_record?
 
           {
-            href: api_v3_paths.catalog_items_by_tree(represented.custom_field_id),
+            href: api_v3_paths.catalog_items_by_catalog(represented.custom_field_id),
             title: "Potential custom nested options to relate to"
           }
         end
 
-        associated_resource :tree, uncacheable_link: true,
+        associated_resource :catalog, uncacheable_link: true,
                             setter: ->(fragment:, **) do
                               next if fragment.empty?
 
@@ -89,7 +89,7 @@ module API
                                          .parse_id href,
                                                    property: 'custom_field',
                                                    expected_version: '3',
-                                                   expected_namespace: 'trees'
+                                                   expected_namespace: 'catalogs'
 
                                   WorkPackageCustomField.find_by(id:)
                                 end

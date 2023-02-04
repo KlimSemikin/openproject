@@ -4,7 +4,7 @@ class CatalogItem < ApplicationRecord
   validates :value, presence: true, length: { maximum: 255 }
   validates :custom_field, presence: true
   validate :custom_field_id_not_changed
-  validate :new_parent_exists_in_tree
+  validate :new_parent_exists_in_catalog
 
   def to_s
     value
@@ -23,32 +23,32 @@ class CatalogItem < ApplicationRecord
   has_many :self_and_descendants, through: :descendant_hierarchies, source: :descendant
 
   # Alias methods
-  def tree_id
+  def catalog_id
     custom_field_id
   end
 
-  def tree
+  def catalog
     custom_field
   end
 
-  # true only if current custom_field contains in this project and user have rights to view_trees
+  # true only if current custom_field contains in this project and user have rights to view_catalogs
   def visible?(user = User.current)
     return true if user.admin?
 
-    Project.allowed_to(user, :view_trees)
+    Project.allowed_to(user, :view_catalogs)
     .joins(:work_package_custom_fields)
     .exists?(custom_fields: { id: custom_field_id })
   end
 
   protected
 
-  # Checks parent presenting in current tree(custom_field)
-  def new_parent_exists_in_tree
+  # Checks parent presenting in current catalog(custom_field)
+  def new_parent_exists_in_catalog
     return unless parent_id.present?
 
     unless WorkPackageCustomField
            .find_by(id: custom_field_id)&.catalog_items&.find_by(id: parent_id)
-      errors.add(:parent_id, "has no found in this tree!")
+      errors.add(:parent_id, "has no found in this catalog!")
     end
   end
 

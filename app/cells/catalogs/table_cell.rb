@@ -1,4 +1,4 @@
-module Trees
+module Catalogs
   class TableCell < ::TableCell
     # options :current_user # adds this option to those of the base class
     columns :name, :is_required, :is_for_all, :is_filter, :searchable, :created_at

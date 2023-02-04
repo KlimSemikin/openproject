@@ -1,9 +1,9 @@
-class TreesController < ApplicationController
+class CatalogsController < ApplicationController
   model_object CustomField
   include Layout
 
   before_action :find_optional_project, only: %i[index show]
-  before_action :find_trees, only: %i[index show]
+  before_action :find_catalogs, only: %i[index show]
   before_action :authorize
 
   def index; end
@@ -20,11 +20,11 @@ class TreesController < ApplicationController
 
   private
 
-  def find_trees
-    @trees = if @project.present?
-               @project.work_package_custom_fields.trees
+  def find_catalogs
+    @catalogs = if @project.present?
+               @project.work_package_custom_fields.catalogs
              else
-               WorkPackageCustomField.trees
+               WorkPackageCustomField.catalogs
              end
   end
 end

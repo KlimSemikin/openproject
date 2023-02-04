@@ -116,7 +116,7 @@
           deactivate(possibleValues);
           activate(textOrientationField);
           break;
-        case 'tree':
+        case 'catalog':
           deactivate(defaultValueFields);
           deactivate(possibleValues);
           deactivate(multiSelect);

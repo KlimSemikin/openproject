@@ -1,11 +1,11 @@
-module Trees
+module Catalogs
   class RowCell < ::RowCell
     def custom_field
       model
     end
 
     def name
-      link_to h(custom_field.name), project_tree_path(params[:project_id], custom_field)
+      link_to h(custom_field.name), project_catalog_path(params[:project_id], custom_field)
     end
 
     def is_required

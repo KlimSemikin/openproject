@@ -30,8 +30,8 @@ class CustomField < ApplicationRecord
   include CustomField::OrderStatements
   scope :required, -> { where(is_required: true) }
 
-  # Scope for tree format(catalog_items)
-  scope :trees, -> { where(field_format: "tree") }
+  # Scope for catalog format(catalog_items)
+  scope :catalogs, -> { where(field_format: "catalog") }
   has_many :custom_values, dependent: :delete_all
   # WARNING: the inverse_of option is also required in order
   # for the 'touch: true' option on the custom_field association in CustomOption
@@ -44,7 +44,7 @@ class CustomField < ApplicationRecord
            inverse_of: 'custom_field'
   accepts_nested_attributes_for :custom_options
 
-  # Relation for trees(directory functional)
+  # Relation for catalogs(directory functional)
   has_many :catalog_items,
            dependent: :delete_all,
            inverse_of: 'custom_field'
@@ -83,7 +83,7 @@ class CustomField < ApplicationRecord
   after_destroy :destroy_help_text
 
   # Prevent save model without any node(catalog_item)
-  before_save :off_required, if: -> { tree? && catalog_items.empty? }
+  before_save :off_required, if: -> { catalog? && catalog_items.empty? }
 
   # make sure int, float, date, and bool are not searchable
   def check_searchability
@@ -92,7 +92,7 @@ class CustomField < ApplicationRecord
   end
 
   def default_value
-    if list? || tree?
+    if list? || catalog?
       ids = custom_options.select(&:default_value).map(&:id)
 
       if multi_value?
@@ -146,8 +146,8 @@ class CustomField < ApplicationRecord
       possible_version_values_options(obj)
     when 'list'
       possible_list_values_options
-    when 'tree'
-      possible_tree_values_options
+    when 'catalog'
+      possible_catalog_values_options
     else
       possible_values
     end
@@ -172,7 +172,7 @@ class CustomField < ApplicationRecord
       possible_values_options(obj).map(&:last)
     when 'list'
       custom_options
-    when 'tree'
+    when 'catalog'
       catalog_items
     else
       read_attribute(:possible_values)
@@ -201,7 +201,7 @@ class CustomField < ApplicationRecord
     casted = nil
     if value.present?
       case field_format
-      when 'string', 'text', 'list', 'tree'
+      when 'string', 'text', 'list', 'catalog'
         casted = value
       when 'date'
         casted = begin; value.to_date; rescue StandardError; nil end
@@ -287,8 +287,8 @@ class CustomField < ApplicationRecord
     field_format == "bool"
   end
 
-  def tree?
-    field_format == "tree"
+  def catalog?
+    field_format == "catalog"
   end
 
   def multi_value?
@@ -336,7 +336,7 @@ class CustomField < ApplicationRecord
     possible_values.map { |option| [option.value, option.id.to_s] }
   end
 
-  def possible_tree_values_options
+  def possible_catalog_values_options
     possible_values.map { |option| [option.value, option.id.to_s] }
   end
 

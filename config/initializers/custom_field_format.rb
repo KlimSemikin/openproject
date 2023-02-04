@@ -46,10 +46,10 @@ OpenProject::CustomFieldFormat.map do |fields|
                                                      label: :label_list,
                                                      order: 5,
                                                      formatter: 'CustomValue::ListStrategy')
-  fields.register OpenProject::CustomFieldFormat.new('tree',
-                                                     label: :label_tree,
+  fields.register OpenProject::CustomFieldFormat.new('catalog',
+                                                     label: :label_catalog,
                                                      order: 6,
-                                                     formatter: 'CustomValue::TreeStrategy')     
+                                                     formatter: 'CustomValue::CatalogStrategy')
   fields.register OpenProject::CustomFieldFormat.new('date',
                                                      label: :label_date,
                                                      order: 7,

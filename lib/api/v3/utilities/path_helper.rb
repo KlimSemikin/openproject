@@ -540,14 +540,14 @@ module API
             "#{project(project_id)}/work_packages"
           end
 
-          # Routes for trees and custom catalogs(nodes)
-          index :tree
-          show :tree
+          # Routes for catalogs and catalog items
+          index :catalog
+          show :catalog
 
           resources :catalog_item
 
-          def self.catalog_items_by_tree(tree_id)
-            "#{tree(tree_id)}/catalog_items"
+          def self.catalog_items_by_catalog(catalog_id)
+            "#{catalog(catalog_id)}/catalog_items"
           end
 
           def self.path_for(path, filters: nil, sort_by: nil, group_by: nil, page_size: nil, offset: nil, select: nil)

@@ -30,7 +30,7 @@ module API
                                    href_callback: ->(*) {
                                      catalog_item = represented.catalog_item
                                      if catalog_item&.persisted?
-                                       api_v3_paths.catalog_items_by_tree(represented.custom_field_id)
+                                       api_v3_paths.catalog_items_by_catalog(represented.custom_field_id)
                                      end
                                    }
 

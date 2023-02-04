@@ -1,4 +1,4 @@
-class CustomValue::TreeStrategy < CustomValue::ARObjectStrategy
+class CustomValue::CatalogStrategy < CustomValue::ARObjectStrategy
   def validate_type_of_value
     unless custom_field.catalog_items.pluck(:id).include?(value.to_i)
       :inclusion

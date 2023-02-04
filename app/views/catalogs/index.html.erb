@@ -1,0 +1,7 @@
+<% html_title(t(:label_catalog_plural)) -%>
+
+<%= toolbar title: t(:label_catalog_plural) do %>
+
+<% end %>
+
+<%= rails_cell Catalogs::TableCell, @catalogs, project: @project, current_user: current_user %>
