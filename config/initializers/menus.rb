@@ -505,9 +505,9 @@ Redmine::MenuManager.map :project_menu do |menu|
               parent: :settings
   end
 
-  menu.push :trees,
-            { controller: '/trees', action: 'index' },
-            caption: :label_tree_plural,
+  menu.push :catalogs,
+            { controller: '/catalogs', action: 'index' },
+            caption: :label_catalog_plural,
             before: :activity,
             icon: 'icon2 icon-notes'
 end
