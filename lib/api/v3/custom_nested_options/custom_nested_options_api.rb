@@ -6,13 +6,19 @@ module API
     module CustomNestedOptions
       class CustomNestedOptionsAPI < ::API::OpenProjectAPI
         resources :custom_nested_options do
+          mount ::API::V3::CustomNestedOptions::Schemas::CustomNestedOptionSchemaAPI
+
           helpers do
             def authorize_custom_option_visibility(custom_nested_option)
-              raise API::Errors::NotFound unless custom_nested_option.visible?
+              raise API::Errors::NotFound model: :custom_nested_option unless custom_nested_option.visible?
             end
           end
 
           route_param :id, type: Integer, desc: 'CustomNestedOption ID' do
+            helpers do
+              attr_reader :custom_nested_option
+            end
+
             after_validation do
               @custom_nested_option = CustomNestedOption.find(params[:id])
               authorize_custom_option_visibility(@custom_nested_option)

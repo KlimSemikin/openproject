@@ -68,6 +68,15 @@ module API
           end
         end
 
+        link :availableRelationCandidates, uncacheable: true do
+          next if represented.new_record?
+
+          {
+            href: api_v3_paths.custom_nested_options_by_tree(represented.custom_field_id),
+            title: "Potential custom nested options to relate to"
+          }
+        end
+
         associated_resource :tree, uncacheable_link: true,
                             setter: ->(fragment:, **) do
                               next if fragment.empty?
