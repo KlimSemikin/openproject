@@ -1,78 +1,9 @@
-<div class="generic-table--container">
-  <div class="generic-table--results-container">
-    <table class="generic-table" id="custom-options-table">
-      <colgroup>
-        <col opHighlightCol>
-        <col opHighlightCol>
-      </colgroup>
-      <thead>
-      <tr>
-        <th>
-          <div class="generic-table--sort-header-outer">
-            <div class="generic-table--sort-header">
-                <span>
-                  Значение
-                </span>
-            </div>
-          </div>
-        </th>
-        <th>
-          <div class="generic-table--sort-header-outer">
-            <div class="generic-table--sort-header">
-                <span>
-                  Описание
-                </span>
-            </div>
-          </div>
-        </th>
-      </tr>
-      </thead>
-
-      <tbody>
-        <tr class="custom-option-row">
-          <tree-root 
-            #tree
-            (moveNode)="onMoveNode($event)"
-            [nodes]="nodes"
-            [options]="options">
-            
-            <ng-template #loadingTemplate></ng-template>
-
-            <ng-template
-              #treeNodeTemplate
-              let-node
-              let-index="index">
-              <div class="custom-option-row">
-                <td>
-                  <span class="form--text-field-container custom-option-value">
-                    <input container_class="custom-option-value"
-                      class="form--text-field"
-                      type="text"
-                      name="custom_field[custom_options_attributes][0][value]"
-                      id="custom_field_custom_options_attributes_0_value"
-                      [(ngModel)]="node.data.value" 
-                      [value]="node.data.value">
-                  </span>
-                </td>
-                <td>
-                  <span class="form--text-area-container custom-option-description">
-                    <textarea container_class="custom-option-description"
-                      class="form--text-area"
-                      name="custom_field[custom_options_attributes][0][description]"
-                      id="custom_field_custom_options_attributes_0_description"
-                      [(ngModel)]="node.data.description" 
-                      [value]="node.data.description"></textarea>
-                  </span>
-                </td>
-              </div>
-            </ng-template>
-
-          </tree-root>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<a class="icon icon-add" id="add-custom-ndested-option" (click)="addNode()">
-  Добавить
-</a>
+<!--<wp-table-->
+<!--          class="work-packages-split-view&#45;&#45;tabletimeline-content">-->
+<!--</wp-table>-->
+<table-hierarchical-list></table-hierarchical-list>
+<!--*ngIf="tableInformationLoaded && showTableView"-->
+<!--[projectIdentifier]="CurrentProject.identifier"-->
+<!--[configuration]="wpTableConfiguration"-->
+<!--(itemClicked)="handleWorkPackageClicked($event)"-->
+<!--(stateLinkClicked)="openStateLink($event)"-->
