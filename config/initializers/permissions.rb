@@ -134,9 +134,9 @@ Rails.application.reloader.to_prepare do
                      require: :member,
                      contract_actions: { projects: %i[copy] }
 
-      # Permissions for trees (directories)
-      map.permission :view_trees,
-                     { trees: %i[index show] },
+      # Permissions for catalogs
+      map.permission :view_catalogs,
+                     { catalogs: %i[index show] },
                      require: :member
     end
 

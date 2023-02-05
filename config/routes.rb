@@ -319,8 +319,8 @@ OpenProject::Application.routes.draw do
           as: 'show_revisions_path'
     end
 
-    # Routes for trees (directories)
-    resources :trees, only: %i[index show]
+    # Routes for catalogs
+    resources :catalogs, only: %i[index show]
   end
 
   resources :admin, controller: :admin, only: :index do
