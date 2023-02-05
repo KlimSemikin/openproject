@@ -76,7 +76,7 @@ import { PasswordConfirmationModalComponent } from 'core-app/shared/components/m
 import { WpPreviewModalComponent } from 'core-app/shared/components/modals/preview-modal/wp-preview-modal/wp-preview.modal';
 import { OpHeaderProjectSelectComponent } from 'core-app/shared/components/header-project-select/header-project-select.component';
 import { OpHeaderProjectSelectListComponent } from 'core-app/shared/components/header-project-select/list/header-project-select-list.component';
-import { OpenprojectCustomFieldsModule } from 'core-app/features/custom-fields/openproject-custom-fields.module';
+import { OpenprojectCatalogItemsModule } from 'core-app/features/catalog-items/openproject-catalog-items.module';
 
 import { PaginationService } from 'core-app/shared/components/table-pagination/pagination-service';
 import { MainMenuResizerComponent } from 'core-app/shared/components/resizer/resizer/main-menu-resizer.component';
@@ -95,7 +95,7 @@ import { OpenprojectContentLoaderModule } from 'core-app/shared/components/op-co
 import { OpenProjectHeaderInterceptor } from 'core-app/features/hal/http/openproject-header-interceptor';
 import { TopMenuService } from 'core-app/core/top-menu/top-menu.service';
 import { A11yModule } from '@angular/cdk/a11y';
-import { OpenprojectCustomFieldsRoutesModule } from 'core-app/features/custom-fields/openproject-custom-fields-routes.module';
+import { OpenprojectCatalogItemsRoutesModule } from 'core-app/features/catalog-items/openproject-catalog-items-routes.module';
 
 export function initializeServices(injector:Injector) {
   return () => {
@@ -202,10 +202,10 @@ export function initializeServices(injector:Injector) {
     OpenprojectContentLoaderModule,
 
     // Custom fields module (hierarchical list)
-    OpenprojectCustomFieldsModule,
+    OpenprojectCatalogItemsModule,
 
     // Custom fields routes module (hierarchical list)
-    OpenprojectCustomFieldsRoutesModule,
+    OpenprojectCatalogItemsRoutesModule,
   ],
   providers: [
     { provide: States, useValue: new States() },

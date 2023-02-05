@@ -12,8 +12,8 @@ import { RoleResource } from 'core-app/features/hal/resources/role-resource';
 import { ProjectResource } from 'core-app/features/hal/resources/project-resource';
 import { PostResource } from 'core-app/features/hal/resources/post-resource';
 import { SchemaResource } from 'core-app/features/hal/resources/schema-resource';
-import { NestedOptionResource } from 'core-app/features/hal/resources/nested-option-resource';
-import { TreeResource } from 'core-app/features/hal/resources/tree-resource';
+import { CatalogItemResource } from 'core-app/features/hal/resources/catalog-item-resource';
+import { CatalogResource } from 'core-app/features/hal/resources/catalog-resource';
 
 export class States extends StatesGroup {
   name = 'MainStore';
@@ -51,11 +51,11 @@ export class States extends StatesGroup {
   /* /api/v3/roles */
   roles = multiInput<RoleResource>();
 
-  /* /api/v3/trees */
-  trees = multiInput<TreeResource>();
+  /* /api/v3/catalogs */
+  catalogs = multiInput<CatalogResource>();
 
-  /* /api/v3/custom_nested_options */
-  custom_nested_options = multiInput<NestedOptionResource>();
+  /* /api/v3/catalog_items */
+  catalog_items = multiInput<CatalogItemResource>();
 
   // Global events to isolated changes
   changes = {

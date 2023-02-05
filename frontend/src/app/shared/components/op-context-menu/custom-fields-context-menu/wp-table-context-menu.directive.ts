@@ -1,6 +1,6 @@
 import { Injector } from '@angular/core';
-import { WorkPackageAction } from 'core-app/features/custom-fields/components/table-hierarchical-list/context-menu-helper/wp-context-menu-helper.service';
-import { WorkPackageTable } from 'core-app/features/custom-fields/components/wp-fast-hierarchical-table/wp-fast-table';
+import { WorkPackageAction } from 'core-app/features/catalog-items/components/ci-table/context-menu-helper/wp-context-menu-helper.service';
+import { WorkPackageTable } from 'core-app/features/catalog-items/components/ci-fast-table/wp-fast-table';
 import { WorkPackageViewContextMenu } from 'core-app/shared/components/op-context-menu/wp-context-menu/wp-view-context-menu.directive';
 import { WorkPackageViewHierarchyIdentationService } from 'core-app/features/work-packages/routing/wp-view-base/view-services/wp-view-hierarchy-indentation.service';
 //Это нужно для отображения в контекстном меню можно ли создать дочерний элемент, его тоже нужно создать для кастом фиелды

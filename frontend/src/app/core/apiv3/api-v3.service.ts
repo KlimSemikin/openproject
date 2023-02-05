@@ -63,8 +63,8 @@ import { ApiV3ViewsPaths } from 'core-app/core/apiv3/endpoints/views/apiv3-views
 import { Apiv3BackupsPath } from 'core-app/core/apiv3/endpoints/backups/apiv3-backups-path';
 import { ApiV3DaysPaths } from 'core-app/core/apiv3/endpoints/days/api-v3-days-paths';
 import { Apiv3StoragesPaths } from 'core-app/core/apiv3/endpoints/storages/apiv3-storages-paths';
-import { ApiV3NestedOptionsPaths } from 'core-app/core/apiv3/endpoints/nested_options/api-v3-nested-options-paths';
-import { ApiV3TreesPaths } from 'core-app/core/apiv3/endpoints/trees/apiv3-trees-paths';
+import { ApiV3CatalogItemsPaths } from 'core-app/core/apiv3/endpoints/catalogs_items/api-v3-catalog-items-paths';
+import { Apiv3CatalogsPaths } from 'core-app/core/apiv3/endpoints/catalogs/apiv3-catalogs-paths';
 
 @Injectable({ providedIn: 'root' })
 export class ApiV3Service {
@@ -164,11 +164,11 @@ export class ApiV3Service {
   // VIRTUAL boards are /api/v3/grids + a scope filter
   public readonly boards = this.apiV3CustomEndpoint(ApiV3BoardsPaths);
 
-  //api/v3/trees
-  public readonly trees = this.apiV3CustomEndpoint(ApiV3TreesPaths);
+  // api/v3/catalogs
+  public readonly catalogs = this.apiV3CustomEndpoint(Apiv3CatalogsPaths);
 
-  // /api/v3/custom_nested_options
-  public readonly custom_nested_options = this.apiV3CustomEndpoint(ApiV3NestedOptionsPaths);
+  // /api/v3/catalog_items
+  public readonly catalog_items = this.apiV3CustomEndpoint(ApiV3CatalogItemsPaths);
 
   constructor(readonly injector:Injector,
     readonly pathHelper:PathHelperService) {
