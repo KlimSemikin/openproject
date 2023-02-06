@@ -6,6 +6,9 @@ module API
         include API::Decorators::DateProperty
         include API::Caching::CachedRepresenter
 
+        cached_representer key_parts: %i(catalog),
+                           disabled: false
+
         self_link
 
         def _type
@@ -77,25 +80,7 @@ module API
           }
         end
 
-        associated_resource :catalog, uncacheable_link: true,
-                            setter: ->(fragment:, **) do
-                              next if fragment.empty?
-
-                              href = fragment['href']
-
-                              new_custom_field =
-                                if href
-                                  id = ::API::Utilities::ResourceLinkParser
-                                         .parse_id href,
-                                                   property: 'custom_field',
-                                                   expected_version: '3',
-                                                   expected_namespace: 'catalogs'
-
-                                  WorkPackageCustomField.find_by(id:)
-                                end
-
-                              represented.custom_field = new_custom_field
-                            end
+        associated_resource :catalog
 
         associated_resource :parent,
                             v3_path: :catalog_item,

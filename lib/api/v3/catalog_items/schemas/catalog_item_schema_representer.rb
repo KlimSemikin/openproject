@@ -23,16 +23,15 @@ module API
                  type: 'Integer',
                  required: false
 
-          schema_with_allowed_link :parent,
-                                   type: 'CatalogItem',
-                                   required: false,
-                                   writable: true,
-                                   href_callback: ->(*) {
-                                     catalog_item = represented.catalog_item
-                                     if catalog_item&.persisted?
-                                       api_v3_paths.catalog_items_by_catalog(represented.custom_field_id)
-                                     end
-                                   }
+          schema :parent,
+                 type: 'CatalogItem',
+                 required: false,
+                 location: :link
+
+          schema :catalog,
+                 type: 'Catalog',
+                 required: true,
+                 location: :link
 
           schema :created_at,
                  type: 'DateTime'

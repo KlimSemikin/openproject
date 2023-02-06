@@ -12,6 +12,10 @@ module API
             end
           end
 
+          post &::API::V3::Utilities::Endpoints::Create.new(
+            model: CatalogItem,
+            parse_service: CatalogItems::ParseParamsService).mount
+
           mount ::API::V3::CatalogItems::Schemas::CatalogItemSchemaAPI
           mount ::API::V3::CatalogItems::CreateFormAPI
 
@@ -38,10 +42,6 @@ module API
 
             mount ::API::V3::CatalogItems::UpdateFormAPI
           end
-
-          post &::API::V3::Utilities::Endpoints::Create.new(
-            model: CatalogItem,
-            parse_service: CatalogItems::ParseParamsService).mount
         end
       end
     end

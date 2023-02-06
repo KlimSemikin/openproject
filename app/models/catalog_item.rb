@@ -1,5 +1,8 @@
 class CatalogItem < ApplicationRecord
   belongs_to :custom_field, touch: true
+  # Alias methods
+  alias_attribute :catalog, :custom_field
+  alias_attribute :catalog_id, :custom_field_id
 
   validates :value, presence: true, length: { maximum: 255 }
   validates :custom_field, presence: true
@@ -21,15 +24,6 @@ class CatalogItem < ApplicationRecord
   # Add methods for eager loading hierarchy
   has_many :eager_ancestors, -> { where.not("catalog_items.id = descendant_id") }, through: :ancestor_hierarchies, source: :ancestor
   has_many :self_and_descendants, through: :descendant_hierarchies, source: :descendant
-
-  # Alias methods
-  def catalog_id
-    custom_field_id
-  end
-
-  def catalog
-    custom_field
-  end
 
   # true only if current custom_field contains in this project and user have rights to view_catalogs
   def visible?(user = User.current)

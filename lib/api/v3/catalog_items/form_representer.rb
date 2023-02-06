@@ -1,10 +1,9 @@
 module API
   module V3
     module CatalogItems
-      class FormRepresenter < ::API::Decorators::Form
-        def payload_representer
-          CatalogItemPayloadRepresenter
-          .create(represented, current_user:)
+      class FormRepresenter < ::API::Decorators::SimpleForm
+        def model
+          CatalogItem
         end
       end
     end
