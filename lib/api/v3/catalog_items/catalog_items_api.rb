@@ -6,13 +6,14 @@ module API
     module CatalogItems
       class CatalogItemsAPI < ::API::OpenProjectAPI
         resources :catalog_items do
-          mount ::API::V3::CatalogItems::Schemas::CatalogItemSchemaAPI
-
           helpers do
             def authorize_custom_option_visibility(catalog_item)
               raise API::Errors::NotFound model: :catalog_item unless catalog_item.visible?
             end
           end
+
+          mount ::API::V3::CatalogItems::Schemas::CatalogItemSchemaAPI
+          mount ::API::V3::CatalogItems::CreateFormAPI
 
           route_param :id, type: Integer, desc: 'CatalogItem ID' do
             helpers do
@@ -34,6 +35,8 @@ module API
               parse_service: CatalogItems::ParseParamsService).mount
 
             delete &::API::V3::Utilities::Endpoints::Delete.new(model: CatalogItem).mount
+
+            mount ::API::V3::CatalogItems::UpdateFormAPI
           end
 
           post &::API::V3::Utilities::Endpoints::Create.new(
