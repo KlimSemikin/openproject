@@ -11,8 +11,10 @@ include:
       - gitlab_ci/.gitlab-ci-clone.yml
       - gitlab_ci/.gitlab-ci-tests.yml
       - gitlab_ci/.gitlab-ci-deploy.yml
+    ref: $XML_IMPORT_CI_TARGET_BRANCH
 
 .db:
+  image: ruby:3.2.0
   cache:
     - key:
         files:
@@ -52,7 +54,6 @@ build:
         - apt-cache/
   script:
     - bin/gitlab_ci/compile_assets
-
   artifacts:
     paths:
       - public/assets/
@@ -60,12 +61,16 @@ build:
       - frontend/src/locales/
       - frontend/src/app/features/plugins/
       - config/frontend_assets.manifest.json
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "merge_request_event"
 
 deploy-openproject-stage:
   needs:
     - job: build
   rules:
+    - if: $CI_PIPELINE_SOURCE != "merge_request_event"
     - if: $CI_JOB_TRIGGERED != "true"
+
   extends: .deploy-template
   script:
     - ssh $SSH_OPENPROJECT_USER@$VM_STAGE_ADDRESS CI_COMMIT_BRANCH="$CI_COMMIT_BRANCH" bash -s < bin/gitlab_ci/deploy_hard
